@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const AppContainer = styled.div`
-  height: calc(100vh - 57px);
+  height: calc(100vh - 41px);
   overflow: scroll;
 
   &::-webkit-scrollbar {

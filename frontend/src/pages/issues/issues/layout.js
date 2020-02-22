@@ -6,11 +6,11 @@ import AppContainer from "../../../components/container";
 import Header from "../../../components/header";
 
 const Separator = props => (
-  <div className="d-flex border-bottom pr-3 pl-3 pb-2 pt-2 bg-blue-light">
+  <div className="d-flex border-bottom pr-3 pl-3 pb-2 pt-2 bg-gray-light">
     <div className="pr-2 pl-2">
       <input type="checkbox" />
     </div>
-    <div className="pr-2 pl-2 flex-1">{props.title}</div>
+    <div className="pr-2 pl-2 flex-1 h5">{props.title}</div>
     <div className="pr-2 pl-2">
       <Octicon icon={Plus} />
     </div>
@@ -29,7 +29,7 @@ const Item = () => (
 );
 
 const HeaderActions = () => (
-  <Link to="/issues">
+  <Link to="/issues/create">
     <Octicon icon={Plus} size={22} />
   </Link>
 );
