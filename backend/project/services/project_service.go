@@ -3,6 +3,7 @@ package services
 import (
 	"github.com/purwandi/hazelapp/project/domain"
 	"github.com/purwandi/hazelapp/project/repository"
+	uuid "github.com/satori/go.uuid"
 )
 
 type ProjectService struct {
@@ -43,4 +44,15 @@ func (s *ProjectService) FindAllProject() ([]domain.Project, error) {
 
 	// response
 	return result.Result.([]domain.Project), nil
+}
+
+func (s *ProjectService) FindProjectByID(id uuid.UUID) (domain.Project, error) {
+	// process
+	result := <-s.query.FindProjectByID(id)
+	if result.Error != nil {
+		return domain.Project{}, result.Error
+	}
+
+	// response
+	return result.Result.(domain.Project), nil
 }

@@ -16,5 +16,5 @@ type Repository interface {
 
 type Query interface {
 	FindAll() <-chan QueryResult
-	FindProjectById(uuid.UUID) <-chan QueryResult
+	FindProjectByID(uuid.UUID) <-chan QueryResult
 }

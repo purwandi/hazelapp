@@ -1,0 +1,13 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  projects(): ProjectConnection!
+  project(id: ID!): Project!
+}
+
+type Mutation {
+  # ProjectCreate(name: String!, description: String) : Project
+}

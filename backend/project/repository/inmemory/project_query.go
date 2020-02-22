@@ -31,7 +31,7 @@ func (query *ProjectQueryInMemory) FindAll() <-chan repository.QueryResult {
 	return result
 }
 
-func (query *ProjectQueryInMemory) FindProjectById(id uuid.UUID) <-chan repository.QueryResult {
+func (query *ProjectQueryInMemory) FindProjectByID(id uuid.UUID) <-chan repository.QueryResult {
 	result := make(chan repository.QueryResult)
 
 	go func() {
