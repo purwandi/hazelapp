@@ -32,7 +32,7 @@ func (s *ProjectService) CreateProject(name, description string) (domain.Project
 	}
 
 	// response
-	return domain.Project{}, nil
+	return *project, nil
 }
 
 func (s *ProjectService) FindAllProject() ([]domain.Project, error) {

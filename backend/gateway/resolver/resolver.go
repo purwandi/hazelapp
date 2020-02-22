@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/purwandi/hazelapp/project/repository/inmemory"
-
 	"github.com/purwandi/hazelapp/project/services"
 	"github.com/purwandi/hazelapp/project/storage"
 	"github.com/sirupsen/logrus"
@@ -23,8 +22,6 @@ func NewResolver() *Resolver {
 		logrus.Fatal("DB driver is not configurable yet")
 	case "inmemory":
 		storage := storage.NewProjectStorage()
-
-		// storage.Demo()
 
 		resolver.ProjectService = services.NewProjectService(
 			inmemory.NewProjectQueryInMemory(storage),
