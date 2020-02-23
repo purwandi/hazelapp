@@ -7,8 +7,8 @@ import (
 )
 
 type ProjectService struct {
-	query      repository.Query
-	repository repository.Repository
+	query      repository.ProjectQuery
+	repository repository.ProjectRepository
 }
 
 func NewProjectService(query repository.Query, repo repository.Repository) *ProjectService {

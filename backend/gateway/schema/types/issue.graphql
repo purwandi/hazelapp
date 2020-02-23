@@ -1,0 +1,7 @@
+type Issue {
+  id: ID!
+  iid: Int!
+  title: String!
+  body: String!
+  createdAt: String!
+}

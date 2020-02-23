@@ -11,7 +11,7 @@ type ProjectQueryInMemory struct {
 	Storage *storage.ProjectStorage
 }
 
-func NewProjectQueryInMemory(s *storage.ProjectStorage) repository.Query {
+func NewProjectQueryInMemory(s *storage.ProjectStorage) repository.ProjectQuery {
 	return &ProjectQueryInMemory{Storage: s}
 }
 

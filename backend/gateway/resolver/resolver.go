@@ -3,14 +3,18 @@ package resolver
 import (
 	"os"
 
-	"github.com/purwandi/hazelapp/project/repository/inmemory"
-	"github.com/purwandi/hazelapp/project/services"
-	"github.com/purwandi/hazelapp/project/storage"
+	RepositoryInMemoryIssue "github.com/purwandi/hazelapp/issue/repository/inmemory"
+	ServiceIssue "github.com/purwandi/hazelapp/issue/services"
+	StorageIssue "github.com/purwandi/hazelapp/issue/storage"
+	RepositoryInMemoryProject "github.com/purwandi/hazelapp/project/repository/inmemory"
+	ServiceProject "github.com/purwandi/hazelapp/project/services"
+	StorageProject "github.com/purwandi/hazelapp/project/storage"
 	"github.com/sirupsen/logrus"
 )
 
 type Resolver struct {
-	ProjectService *services.ProjectService
+	ProjectService *ServiceProject.ProjectService
+	IssueService   *ServiceIssue.IssueService
 }
 
 func NewResolver() *Resolver {
@@ -21,12 +25,18 @@ func NewResolver() *Resolver {
 	default:
 		logrus.Fatal("DB driver is not configurable yet")
 	case "inmemory":
-		storage := storage.NewProjectStorage()
-
-		resolver.ProjectService = services.NewProjectService(
-			inmemory.NewProjectQueryInMemory(storage),
-			inmemory.NewProjectRepositoryInMemory(storage),
+		ProjectStorage := StorageProject.NewProjectStorage()
+		resolver.ProjectService = ServiceProject.NewProjectService(
+			RepositoryInMemoryProject.NewProjectQueryInMemory(ProjectStorage),
+			RepositoryInMemoryProject.NewProjectRepositoryInMemory(ProjectStorage),
 		)
+
+		IssueStorage := StorageIssue.NewIssueStorage()
+		resolver.IssueService = ServiceIssue.NewIssueService(
+			RepositoryInMemoryIssue.NewIssueQueryInMemory(IssueStorage),
+			RepositoryInMemoryIssue.NewIssueRepositoryInMemory(IssueStorage),
+		)
+
 	}
 
 	return resolver

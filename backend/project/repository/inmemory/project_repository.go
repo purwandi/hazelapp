@@ -10,7 +10,7 @@ type ProjectRepositoryInMemory struct {
 	Storage *storage.ProjectStorage
 }
 
-func NewProjectRepositoryInMemory(s *storage.ProjectStorage) repository.Repository {
+func NewProjectRepositoryInMemory(s *storage.ProjectStorage) repository.ProjectRepository {
 	return &ProjectRepositoryInMemory{Storage: s}
 }
 

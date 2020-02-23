@@ -10,11 +10,11 @@ type QueryResult struct {
 	Error  error
 }
 
-type Repository interface {
+type ProjectRepository interface {
 	Save(*domain.Project) <-chan error
 }
 
-type Query interface {
+type ProjectQuery interface {
 	FindAll() <-chan QueryResult
 	FindProjectByID(uuid.UUID) <-chan QueryResult
 }
