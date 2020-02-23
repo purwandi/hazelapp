@@ -5,3 +5,28 @@ type Issue {
   body: String!
   createdAt: String!
 }
+
+enum IssueState {
+  # An issue that is still open
+  OPEN
+  # An issue that has been closed
+  CLOSED
+}
+
+input CreateIssueInput {
+  # The project ID of the repository.
+  projectId: ID!
+  # The title for the issue.
+  title: String!
+  # The body for the issue description.
+  body: String
+}
+
+input UpdateIssueInput {
+  iid: Int!
+  # The title for the issue.
+  title: String
+  # The body for the issue description.
+  body: String
+  state: IssueState
+}

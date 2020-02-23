@@ -11,10 +11,11 @@ type QueryResult struct {
 }
 
 type IssueQuery interface {
-	FindAllIssuesByProjectID(uuid.UUID) <-chan QueryResult
-	GetLastIssueNumberFromGivenProject(uuid.UUID) <-chan QueryResult
+	FindAllIssuesByProjectID(projectID uuid.UUID) <-chan QueryResult
+	FindIssueByIID(iid int, projectID uuid.UUID) <-chan QueryResult
+	GetLastIssueNumberFromGivenProject(projectID uuid.UUID) <-chan QueryResult
 }
 
 type IssueRepository interface {
-	Save(*domain.Issue) <-chan error
+	Save(issue *domain.Issue) <-chan error
 }

@@ -10,5 +10,6 @@ type Query {
 
 type Mutation {
   ProjectCreate(name: String!, description: String): Project
-  IssueCreate(title: String!, body: String!, project_id: ID!): Issue
+  IssueCreate(input: CreateIssueInput!): Issue
+  IssueUpdate(input: UpdateIssueInput!): Issue
 }

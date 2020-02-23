@@ -3,7 +3,7 @@ package resolver
 import (
 	"context"
 
-	"github.com/purwandi/hazelapp/gateway/types"
+	"github.com/purwandi/hazelapp/types"
 	"github.com/sirupsen/logrus"
 )
 

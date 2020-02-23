@@ -21,7 +21,7 @@ func (query *IssueQueryInMemory) GetLastIssueNumberFromGivenProject(id uuid.UUID
 	go func() {
 		issue := domain.Issue{}
 		for _, item := range query.Storage.IssueMap {
-			if item.ProjectID == id && item.AutoNumber > issue.AutoNumber {
+			if item.ProjectID == id && item.IID > issue.IID {
 				issue = item
 			}
 		}
@@ -30,7 +30,7 @@ func (query *IssueQueryInMemory) GetLastIssueNumberFromGivenProject(id uuid.UUID
 			result <- repository.QueryResult{Result: 0}
 		}
 
-		result <- repository.QueryResult{Result: issue.AutoNumber}
+		result <- repository.QueryResult{Result: issue.IID}
 		close(result)
 	}()
 
@@ -49,6 +49,24 @@ func (query *IssueQueryInMemory) FindAllIssuesByProjectID(id uuid.UUID) <-chan r
 		}
 
 		result <- repository.QueryResult{Result: issues}
+		close(result)
+	}()
+
+	return result
+}
+
+func (query *IssueQueryInMemory) FindIssueByIID(id int, projectID uuid.UUID) <-chan repository.QueryResult {
+	result := make(chan repository.QueryResult)
+
+	go func() {
+		issue := domain.Issue{}
+		for _, item := range query.Storage.IssueMap {
+			if item.IID == id && item.ProjectID == projectID {
+				issue = item
+			}
+		}
+
+		result <- repository.QueryResult{Result: issue}
 		close(result)
 	}()
 

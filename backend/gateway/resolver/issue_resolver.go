@@ -17,7 +17,7 @@ func (i *IssueResolver) ID() graphql.ID {
 }
 
 func (i *IssueResolver) IID() int32 {
-	return int32(i.Field.AutoNumber)
+	return int32(i.Field.IID)
 }
 
 func (i *IssueResolver) Title() string {

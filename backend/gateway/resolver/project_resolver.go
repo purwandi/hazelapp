@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/graph-gophers/graphql-go"
-	"github.com/purwandi/hazelapp/gateway/types"
 	"github.com/purwandi/hazelapp/project/domain"
+	"github.com/purwandi/hazelapp/types"
 )
 
 // ProjectResolver is a struct to resolve project domain

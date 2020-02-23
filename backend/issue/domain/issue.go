@@ -6,14 +6,21 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
+const (
+	Open   = "OPEN"
+	Closed = "CLOSED"
+)
+
 type Issue struct {
-	ID         uuid.UUID
-	ProjectID  uuid.UUID
-	AutoNumber int
-	Title      string
-	Body       string
-	CreatedAt  time.Time
-	UpdatedAt  time.Time
+	ID        uuid.UUID
+	ProjectID uuid.UUID
+	AuthorID  uuid.UUID
+	IID       int
+	Title     string
+	Body      string
+	State     string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 type IssueService interface {
@@ -21,22 +28,52 @@ type IssueService interface {
 }
 
 func CreateIssue(service IssueService, title, body string, projectID uuid.UUID) (*Issue, error) {
+	if title == "" {
+		return nil, IssueError{IssueErrorTitleIsBlank}
+	}
+
 	uid, err := uuid.NewV4()
 	if err != nil {
 		return nil, err
 	}
 
-	autonumber, err := service.GetLastIssueNumberFromGivenProject(projectID)
+	iid, err := service.GetLastIssueNumberFromGivenProject(projectID)
 	if err != nil {
 		return nil, err
 	}
 
 	return &Issue{
-		ID:         uid,
-		ProjectID:  projectID,
-		AutoNumber: autonumber + 1,
-		Title:      title,
-		Body:       body,
-		CreatedAt:  time.Now(),
+		ID:        uid,
+		ProjectID: projectID,
+		IID:       iid + 1,
+		Title:     title,
+		Body:      body,
+		CreatedAt: time.Now(),
 	}, nil
+}
+
+func (i *Issue) ChangeTitle(title string) error {
+	if title == "" {
+		return IssueError{IssueErrorTitleIsBlank}
+	}
+
+	i.Title = title
+	i.UpdatedAt = time.Now()
+	return nil
+}
+
+func (i *Issue) ChangeBody(body string) error {
+	i.Body = body
+	i.UpdatedAt = time.Now()
+	return nil
+}
+
+func (i *Issue) ChangeState(state string) error {
+	if state != Open || state != Closed {
+		return IssueError{IssueErrorUndefinedIssueState}
+	}
+
+	i.State = state
+	i.UpdatedAt = time.Now()
+	return nil
 }

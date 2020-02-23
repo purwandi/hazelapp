@@ -45,3 +45,23 @@ func (s *IssueService) CreateIssue(title, body string, projectID uuid.UUID) (dom
 	// Response
 	return *issue, nil
 }
+
+func (s *IssueService) UpdateIssue(iid int, title, body string, projectID uuid.UUID) (domain.Issue, error) {
+	// Process
+	result := <-s.query.FindIssueByIID(iid, projectID)
+	if result.Error != nil {
+		return domain.Issue{}, result.Error
+	}
+
+	issue := result.Result.(*domain.Issue)
+	issue.ChangeTitle(title)
+	issue.ChangeBody(body)
+
+	// Persist
+	if err := <-s.repository.Save(issue); err != nil {
+		return domain.Issue{}, err
+	}
+
+	// Response
+	return *issue, nil
+}
