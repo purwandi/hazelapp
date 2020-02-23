@@ -19,3 +19,11 @@ type IssueQuery interface {
 type IssueRepository interface {
 	Save(issue *domain.Issue) <-chan error
 }
+
+type MilestoneQuery interface {
+	FindAllMilestonesByProjectID(projectID uuid.UUID) <-chan QueryResult
+}
+
+type MilestoneRepository interface {
+	Save(milestone *domain.Milestone) <-chan error
+}

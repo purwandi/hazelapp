@@ -12,4 +12,5 @@ type Mutation {
   ProjectCreate(name: String!, description: String): Project
   IssueCreate(input: CreateIssueInput!): Issue
   IssueUpdate(input: UpdateIssueInput!): Issue
+  MilestoneCreate(input: CreateMilestoneInput!): Milestone
 }

@@ -32,12 +32,12 @@ func CreateIssue(service IssueService, title, body string, projectID uuid.UUID) 
 		return nil, IssueError{IssueErrorTitleIsBlank}
 	}
 
-	uid, err := uuid.NewV4()
+	iid, err := service.GetLastIssueNumberFromGivenProject(projectID)
 	if err != nil {
 		return nil, err
 	}
 
-	iid, err := service.GetLastIssueNumberFromGivenProject(projectID)
+	uid, err := uuid.NewV4()
 	if err != nil {
 		return nil, err
 	}
@@ -48,6 +48,7 @@ func CreateIssue(service IssueService, title, body string, projectID uuid.UUID) 
 		IID:       iid + 1,
 		Title:     title,
 		Body:      body,
+		State:     Open,
 		CreatedAt: time.Now(),
 	}, nil
 }
@@ -74,6 +75,18 @@ func (i *Issue) ChangeState(state string) error {
 	}
 
 	i.State = state
+	i.UpdatedAt = time.Now()
+	return nil
+}
+
+func (i *Issue) ReOpen() error {
+	i.State = Open
+	i.UpdatedAt = time.Now()
+	return nil
+}
+
+func (i *Issue) Close() error {
+	i.State = Closed
 	i.UpdatedAt = time.Now()
 	return nil
 }

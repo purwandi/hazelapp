@@ -16,7 +16,7 @@ func TestCanGetLastIssueNumberFromGivenProject(t *testing.T) {
 
 	store := storage.NewIssueStorage()
 	store.IssueMap = []domain.Issue{
-		domain.Issue{ID: issueID, Title: "Hello", Body: "This is a body", AutoNumber: 1, ProjectID: projectID},
+		domain.Issue{ID: issueID, Title: "Hello", Body: "This is a body", IID: 1, ProjectID: projectID},
 	}
 
 	query := NewIssueQueryInMemory(store)

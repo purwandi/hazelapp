@@ -13,8 +13,9 @@ import (
 )
 
 type Resolver struct {
-	ProjectService *ServiceProject.ProjectService
-	IssueService   *ServiceIssue.IssueService
+	ProjectService   *ServiceProject.ProjectService
+	IssueService     *ServiceIssue.IssueService
+	MilestoneService *ServiceIssue.MilestoneService
 }
 
 func NewResolver() *Resolver {
@@ -26,15 +27,22 @@ func NewResolver() *Resolver {
 		logrus.Fatal("DB driver is not configurable yet")
 	case "inmemory":
 		ProjectStorage := StorageProject.NewProjectStorage()
+		IssueStorage := StorageIssue.NewIssueStorage()
+		MilestoneStorage := StorageIssue.NewMilestoneStorage()
+
 		resolver.ProjectService = ServiceProject.NewProjectService(
 			RepositoryInMemoryProject.NewProjectQueryInMemory(ProjectStorage),
 			RepositoryInMemoryProject.NewProjectRepositoryInMemory(ProjectStorage),
 		)
 
-		IssueStorage := StorageIssue.NewIssueStorage()
 		resolver.IssueService = ServiceIssue.NewIssueService(
 			RepositoryInMemoryIssue.NewIssueQueryInMemory(IssueStorage),
 			RepositoryInMemoryIssue.NewIssueRepositoryInMemory(IssueStorage),
+		)
+
+		resolver.MilestoneService = ServiceIssue.NewMilestoneService(
+			RepositoryInMemoryIssue.NewMilestoneQueryInMemory(MilestoneStorage),
+			RepositoryInMemoryIssue.NewMilestoneRepositoryInMemory(MilestoneStorage),
 		)
 
 	}

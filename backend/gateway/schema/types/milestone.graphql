@@ -1,0 +1,12 @@
+type Milestone {
+  id: ID!
+  name: String!
+  description: String
+  projectId: String!
+}
+
+input CreateMilestoneInput {
+  name: String!
+  description: String
+  projectId: String!
+}
