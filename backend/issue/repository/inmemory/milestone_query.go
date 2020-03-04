@@ -4,7 +4,7 @@ import (
 	"github.com/purwandi/hazelapp/issue/domain"
 	"github.com/purwandi/hazelapp/issue/repository"
 	"github.com/purwandi/hazelapp/issue/storage"
-	uuid "github.com/satori/go.uuid"
+	"github.com/purwandi/hazelapp/issue/types"
 )
 
 type MilestoneQueryInMemory struct {
@@ -15,16 +15,16 @@ func NewMilestoneQueryInMemory(s *storage.MilestoneStorage) repository.Milestone
 	return &MilestoneQueryInMemory{Storage: s}
 }
 
-func (query *MilestoneQueryInMemory) FindAllMilestonesByProjectID(id uuid.UUID) <-chan repository.QueryResult {
+func (query *MilestoneQueryInMemory) GetMilestones(args *types.GetMilestoneQueryInput) <-chan repository.QueryResult {
 	result := make(chan repository.QueryResult)
 
 	go func() {
 		milestones := []domain.Milestone{}
-		for _, milestone := range query.Storage.MilestoneMap {
-			if milestone.ProjectID == id {
-				milestones = append(milestones, milestone)
-			}
-		}
+		// for _, milestone := range query.Storage.MilestoneMap {
+		// 	if milestone.ProjectID == args.ProjectID {
+		// 		milestones = append(milestones, milestone)
+		// 	}
+		// }
 
 		result <- repository.QueryResult{Result: milestones}
 		close(result)

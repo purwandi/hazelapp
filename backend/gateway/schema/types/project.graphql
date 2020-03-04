@@ -5,12 +5,21 @@ type Project {
   createdAt: String!
 }
 
+input CreateProjectInput {
+  # The ID of the owner for the new project.
+  ownerId: Int
+  # The name of the new project.
+  name: String!
+  # A short description of the new project.
+  description: String
+}
+
 type ProjectConnection {
   totalCount: Int!
   edges: [ProjectEdge]
 }
 
-type ProjectEdge{
+type ProjectEdge {
   cursor: ID!
   node: Project
 }

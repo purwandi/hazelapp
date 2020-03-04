@@ -3,31 +3,44 @@ package domain
 import (
 	"time"
 
-	uuid "github.com/satori/go.uuid"
+	"github.com/purwandi/hazelapp/helpers"
+	"github.com/purwandi/hazelapp/project/types"
+	"github.com/sirupsen/logrus"
 )
 
+// ProjectService is
+type ProjectService interface {
+	FindProject(types.FindProjectInput) (Project, error)
+}
+
+// Project domain
 type Project struct {
-	ID          uuid.UUID
+	ID          int
+	OwnerID     int
+	Code        string
 	Name        string
 	Description string
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
 
-func CreateProject(name, description string) (*Project, error) {
-	if name == "" {
+// CreateProject is to create new project domain instance
+func CreateProject(service ProjectService, args types.CreateProjectInput) (*Project, error) {
+	if args.Name == "" {
 		return nil, ProjectError{ProjectErrorNameIsBlank}
 	}
 
-	uid, err := uuid.NewV4()
-	if err != nil {
-		return nil, err
+	result, err := service.FindProject(types.FindProjectInput{OwnerID: args.OwnerID, Name: args.Name})
+	logrus.Info(result)
+	if err == nil {
+		return nil, ProjectError{ProjectErrorNameIsExists}
 	}
 
 	return &Project{
-		ID:          uid,
-		Name:        name,
-		Description: description,
+		OwnerID:     args.OwnerID,
+		Name:        args.Name,
+		Code:        helpers.StringValue(args.Code),
+		Description: helpers.StringValue(args.Description),
 		CreatedAt:   time.Now(),
 	}, nil
 }

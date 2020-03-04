@@ -10,3 +10,7 @@ input CreateMilestoneInput {
   description: String
   projectId: String!
 }
+
+input GetMilestoneQueryInput {
+  projectId: String!
+}

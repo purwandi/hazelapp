@@ -1,8 +1,10 @@
 package services
 
 import (
+	"github.com/purwandi/hazelapp/helpers"
 	"github.com/purwandi/hazelapp/issue/domain"
 	"github.com/purwandi/hazelapp/issue/repository"
+	"github.com/purwandi/hazelapp/issue/types"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -18,9 +20,14 @@ func NewMilestoneService(query repository.MilestoneQuery, repo repository.Milest
 	}
 }
 
-func (s *MilestoneService) CreateMilestone(name, description string, projectID uuid.UUID) (domain.Milestone, error) {
+func (s *MilestoneService) CreateMilestone(args *types.CreateMilestoneInput) (domain.Milestone, error) {
 	// Process
-	milestone, err := domain.CreateMilestone(name, description, projectID)
+	projectID, err := uuid.FromString(args.ProjectID)
+	if err != nil {
+		return domain.Milestone{}, err
+	}
+
+	milestone, err := domain.CreateMilestone(args.Name, helpers.StringValue(args.Description), projectID)
 	if err != nil {
 		return domain.Milestone{}, err
 	}
@@ -34,9 +41,14 @@ func (s *MilestoneService) CreateMilestone(name, description string, projectID u
 	return *milestone, nil
 }
 
-func (s *MilestoneService) FindAllMilestonesByProjectID(projectID uuid.UUID) ([]domain.Milestone, error) {
+func (s *MilestoneService) FindAllMilestones(args *types.GetMilestoneQueryInput) ([]domain.Milestone, error) {
+	// Validate
+	if args == nil {
+		return []domain.Milestone{}, ServiceError{ServiceErrorArgsIsBlank}
+	}
+
 	// Process
-	result := <-s.query.FindAllMilestonesByProjectID(projectID)
+	result := <-s.query.GetMilestones(args)
 	if result.Error != nil {
 		return []domain.Milestone{}, result.Error
 	}

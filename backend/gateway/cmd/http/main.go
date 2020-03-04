@@ -14,10 +14,13 @@ func main() {
 
 	e := echo.New()
 	e.Use(middleware.CORS())
+	e.Use(middleware.Static("./public"))
 
 	e.POST("/graphql", app.GraphQLHandler(&relay.Handler{
 		Schema: graphql.MustParseSchema(app.Schema, app.Resolver),
 	}))
+	e.POST("/register", app.RegisterHandler)
+	e.POST("/login", app.LoginHandler)
 
 	e.Logger.Info(e.Start(":3000"))
 }

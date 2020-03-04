@@ -4,13 +4,14 @@ schema {
 }
 
 type Query {
-  projects(): ProjectConnection!
-  project(id: ID!): Project!
+  # projects(): ProjectConnection!
+  # project(id: ID!): Project!
+  # milestones(input: GetMilestoneQueryInput) [Milestone]
 }
 
 type Mutation {
-  ProjectCreate(name: String!, description: String): Project
-  IssueCreate(input: CreateIssueInput!): Issue
-  IssueUpdate(input: UpdateIssueInput!): Issue
-  MilestoneCreate(input: CreateMilestoneInput!): Milestone
+  ProjectCreate(input: CreateProjectInput!): Project
+  # IssueCreate(input: CreateIssueInput!): Issue
+  # IssueUpdate(input: UpdateIssueInput!): Issue
+  # MilestoneCreate(input: CreateMilestoneInput!): Milestone
 }

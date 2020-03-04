@@ -2,6 +2,7 @@ package repository
 
 import (
 	"github.com/purwandi/hazelapp/issue/domain"
+	"github.com/purwandi/hazelapp/issue/types"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -21,7 +22,7 @@ type IssueRepository interface {
 }
 
 type MilestoneQuery interface {
-	FindAllMilestonesByProjectID(projectID uuid.UUID) <-chan QueryResult
+	GetMilestones(args *types.GetMilestoneQueryInput) <-chan QueryResult
 }
 
 type MilestoneRepository interface {

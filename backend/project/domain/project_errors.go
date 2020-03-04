@@ -6,6 +6,7 @@ type ProjectError struct {
 
 const (
 	ProjectErrorNameIsBlank = iota
+	ProjectErrorNameIsExists
 )
 
 func (e ProjectError) Error() string {
@@ -14,5 +15,7 @@ func (e ProjectError) Error() string {
 		return "Unrecognized project error code"
 	case ProjectErrorNameIsBlank:
 		return "Project name can't be blank"
+	case ProjectErrorNameIsExists:
+		return "Project name already exists"
 	}
 }
