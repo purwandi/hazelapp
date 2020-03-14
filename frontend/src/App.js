@@ -1,16 +1,20 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import AppNav from "./components/navs";
-import AppRouter from "./Router";
+import AppAuth from "./pages/auth/router";
+import AppContainer from "./container";
+
+import { AppProvider } from "./context";
 
 const App = () => (
-  <Router>
-    <div className="d-flex">
-      <AppNav />
-      <AppRouter />
-    </div>
-  </Router>
+  <AppProvider>
+    <Router>
+      <Switch>
+        <Route path="/auth" component={AppAuth} />
+        <Route path="/" component={AppContainer} />
+      </Switch>
+    </Router>
+  </AppProvider>
 );
 
 export default App;

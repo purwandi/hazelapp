@@ -22,5 +22,5 @@ func main() {
 	e.POST("/register", app.RegisterHandler)
 	e.POST("/login", app.LoginHandler)
 
-	e.Logger.Info(e.Start(":3000"))
+	e.Logger.Info(e.Start(":3001"))
 }

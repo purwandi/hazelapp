@@ -1,72 +1,101 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Octicon, { Plus } from "@primer/octicons-react";
+import Octicon, { Plus, PrimitiveDot as PrimitiveDotIcon } from "@primer/octicons-react";
 
-import AppContainer from "../../../components/container";
 import Header from "../../../components/header";
 
 const Separator = props => (
-  <div className="d-flex border-bottom pr-3 pl-3 pb-2 pt-2 bg-gray-light">
-    <div className="pr-2 pl-2">
+  <div className="flex border-b border-gray-400 px-3 py-1 bg-gray-100 text-sm">
+    {/* <div className="px-2">
       <input type="checkbox" />
-    </div>
-    <div className="pr-2 pl-2 flex-1 h5">{props.title}</div>
-    <div className="pr-2 pl-2">
+    </div> */}
+    <div className="px-2 flex-1 tracking-wide text-gray-900">{props.title}</div>
+    <div className="px-2">
       <Octicon icon={Plus} />
     </div>
   </div>
 );
 
-const Item = () => (
-  <div className="d-flex border-bottom pr-3 pl-3 pb-2 pt-2">
-    <div className="pr-2 pl-2">
+const Item = props => (
+  <div className="flex justify-between items-center border-b border-gray-200 px-3 py-1 text-sm">
+    {/* <div className="px-2">
       <input type="checkbox" />
+    </div> */}
+    <div className="pl-2 w-20 text-gray-600 text-xs">{props.id}</div>
+    <div className="px-2 flex-1 truncate">
+      <span className="text-gray-900 font-lighter tracking-wide">{props.body}</span>
     </div>
-    <div className="pr-2 pl-2">XD-11</div>
-    <div className="pr-2 pl-2 flex-1">Body</div>
-    <div className="pr-2 pl-2">meta</div>
+    <div className="px-1">
+      <div className="flex justify-end items-center">
+        <div className="flex justify-between text-xs">
+          <div className="px-2 ml-1 inline-block border border-gray-200 text-red-700 rounded-lg">
+            <Octicon icon={PrimitiveDotIcon} />
+            <span className="ml-1">Bug</span>
+          </div>
+          <div className="px-2 ml-1 inline-block border border-gray-200 text-yellow-700 rounded-full">
+            <Octicon icon={PrimitiveDotIcon} />
+            <span className="ml-1">Bug</span>
+          </div>
+        </div>
+        <div className="px-2 text-gray-600 text-xs">Apr 29</div>
+        <div className="">
+          <img
+            src="https://avatars.slack-edge.com/2020-02-13/949588721668_1ea008d5d04743ef5131_72.png"
+            className="rounded-full inline-block w-6"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 );
 
-const HeaderActions = () => (
-  <Link to="/issues/create">
-    <Octicon icon={Plus} size={22} />
-  </Link>
-);
-
-const Issues = () => (
-  <React.Fragment>
-    <Header title="Issues" Actions={HeaderActions} />
-    <AppContainer>
+const AppIssuesLayout = () => (
+  <div className="h-screen flex flex-col">
+    <header className="flex justify-between items-center py-3 border-b border-gray-200">
+      <h1 className="tracking-wider font-medium px-5">Active Issues</h1>
+    </header>
+    <div className="overflow-y-auto flex-1 pb-5">
       <Separator title="Ready for testing" />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Separator title="In Review" />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Separator title="In Design" />
-      <Item />
-      <Item />
-      <Item />
+      <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
+      <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
+      <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
+      <Item id="XDM-30344" body="Split variable $table-cell-padding into separate variables css" />
+      <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
+      <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
+      <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
+      <Item id="XDM-20219" body="Support multiple targets for tabs " />
+
+      <Separator title="In review" />
+      <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
+      <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
+      <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
+      <Item id="XDM-30344" body="Split variable $table-cell-padding into separate variables css" />
+      <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
+      <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
+      <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
+      <Item id="XDM-20219" body="Support multiple targets for tabs " />
+
+      <Separator title="In design" />
+      <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
+      <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
+      <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
+      <Item id="XDM-30344" body="Split variable $table-cell-padding into separate variables css" />
+      <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
+      <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
+      <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
+      <Item id="XDM-20219" body="Support multiple targets for tabs " />
+
       <Separator title="Todo" />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-    </AppContainer>
-  </React.Fragment>
+      <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
+      <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
+      <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
+      <Item id="XDM-30344" body="Split variable $table-cell-padding into separate variables css" />
+      <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
+      <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
+      <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
+      <Item id="XDM-20219" body="Support multiple targets for tabs " />
+    </div>
+  </div>
 );
 
-export default Issues;
+export default AppIssuesLayout;
