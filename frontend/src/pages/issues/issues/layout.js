@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Octicon, { Plus, PrimitiveDot as PrimitiveDotIcon } from "@primer/octicons-react";
-
-import Header from "../../../components/header";
+import { Link, useRouteMatch } from "react-router-dom";
+import Octicon, {
+  Plus as PlusIcon,
+  PrimitiveDot as PrimitiveDotIcon
+} from "@primer/octicons-react";
 
 const Separator = props => (
   <div className="flex border-b border-gray-400 px-3 py-1 bg-gray-100 text-sm">
@@ -11,7 +12,7 @@ const Separator = props => (
     </div> */}
     <div className="px-2 flex-1 tracking-wide text-gray-900">{props.title}</div>
     <div className="px-2">
-      <Octicon icon={Plus} />
+      <Octicon icon={PlusIcon} />
     </div>
   </div>
 );
@@ -49,53 +50,74 @@ const Item = props => (
   </div>
 );
 
-const AppIssuesLayout = () => (
-  <div className="h-screen flex flex-col">
-    <header className="flex justify-between items-center py-3 border-b border-gray-200">
-      <h1 className="tracking-wider font-medium px-5">Active Issues</h1>
-    </header>
-    <div className="overflow-y-auto flex-1 pb-5">
-      <Separator title="Ready for testing" />
-      <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
-      <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
-      <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
-      <Item id="XDM-30344" body="Split variable $table-cell-padding into separate variables css" />
-      <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
-      <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
-      <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
-      <Item id="XDM-20219" body="Support multiple targets for tabs " />
+const AppIssuesLayout = props => {
+  const { path } = useRouteMatch();
 
-      <Separator title="In review" />
-      <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
-      <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
-      <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
-      <Item id="XDM-30344" body="Split variable $table-cell-padding into separate variables css" />
-      <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
-      <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
-      <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
-      <Item id="XDM-20219" body="Support multiple targets for tabs " />
+  return (
+    <div className="h-screen flex flex-col">
+      <header className="flex justify-between items-center py-3 border-b border-gray-200">
+        <h1 className="tracking-wider font-medium px-5 flex-1">Active Issues</h1>
+        <div className="px-5">
+          <Link to={`${path}create`} className="bg-indigo-500 py-1 px-2 text-white rounded text-sm">
+            <Octicon icon={PlusIcon} />
+          </Link>
+        </div>
+      </header>
+      <div className="overflow-y-auto flex-1 pb-5">
+        <Separator title="Ready for testing" />
+        <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
+        <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
+        <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
+        <Item
+          id="XDM-30344"
+          body="Split variable $table-cell-padding into separate variables css"
+        />
+        <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
+        <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
+        <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
+        <Item id="XDM-20219" body="Support multiple targets for tabs " />
 
-      <Separator title="In design" />
-      <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
-      <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
-      <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
-      <Item id="XDM-30344" body="Split variable $table-cell-padding into separate variables css" />
-      <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
-      <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
-      <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
-      <Item id="XDM-20219" body="Support multiple targets for tabs " />
+        <Separator title="In review" />
+        <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
+        <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
+        <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
+        <Item
+          id="XDM-30344"
+          body="Split variable $table-cell-padding into separate variables css"
+        />
+        <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
+        <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
+        <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
+        <Item id="XDM-20219" body="Support multiple targets for tabs " />
 
-      <Separator title="Todo" />
-      <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
-      <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
-      <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
-      <Item id="XDM-30344" body="Split variable $table-cell-padding into separate variables css" />
-      <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
-      <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
-      <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
-      <Item id="XDM-20219" body="Support multiple targets for tabs " />
+        <Separator title="In design" />
+        <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
+        <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
+        <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
+        <Item
+          id="XDM-30344"
+          body="Split variable $table-cell-padding into separate variables css"
+        />
+        <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
+        <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
+        <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
+        <Item id="XDM-20219" body="Support multiple targets for tabs " />
+
+        <Separator title="Todo" />
+        <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
+        <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
+        <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
+        <Item
+          id="XDM-30344"
+          body="Split variable $table-cell-padding into separate variables css"
+        />
+        <Item id="XDM-30343" body="HTML style reboot issue for placeholder link " />
+        <Item id="XDM-19145" body="Allow CSS class strings in JS plugins to be overridden" />
+        <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
+        <Item id="XDM-20219" body="Support multiple targets for tabs " />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default AppIssuesLayout;
