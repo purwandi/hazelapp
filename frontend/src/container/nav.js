@@ -23,7 +23,7 @@ const NavItem = props => {
 
 const NavProfile = () => {
   const [menu, setMenu] = useState(false);
-  const active = menu == true ? "block" : "hidden";
+  const active = menu === true ? "block" : "hidden";
 
   return (
     <div className="relative">

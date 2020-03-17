@@ -3,9 +3,8 @@ package domain
 import (
 	"time"
 
-	uuid "github.com/satori/go.uuid"
-
 	"github.com/purwandi/hazelapp/user/types"
+	uuid "github.com/satori/go.uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
