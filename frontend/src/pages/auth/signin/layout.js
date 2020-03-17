@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 
 const AuthSigninLayout = props => {
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4">
-      <div className="max-w-sm w-full">
-        <h1 className="text-3xl font-bold mb-3">Sign in to your account</h1>
-        <form method="POST">
+    <div className="min-h-screen flex items-center justify-center px-4 text-center">
+      <div className="max-w-sm w-full ">
+        <form method="POST" className="border border-gray-400 shadow px-10 pt-10 pb-5">
+          <p className="text-2xl font-medium mb-8">Sign in to your account</p>
           <div className="mb-3">
-            <label className="block text-sm pb-1">Username</label>
             <input
               className="py-2 px-3 w-full text-sm rounded border border-solid border-gray-400 focus:border-gray-500"
               type="text"
@@ -17,7 +16,6 @@ const AuthSigninLayout = props => {
             />
           </div>
           <div className="mb-3">
-            <label className="block text-sm pb-1">Password</label>
             <input
               className="py-2 px-3 w-full text-sm rounded border border-solid border-gray-400 focus:border-gray-500"
               type="password"
@@ -25,16 +23,16 @@ const AuthSigninLayout = props => {
               placeholder="Please input your password"
             />
           </div>
-          <div className="flex justify-between items-center mt-5 p-1">
-            <Link
-              to="/auth/signup"
-              className="bg-indigo-100 hover:bg-indigo-200 text-sm py-2 px-6 text-indigo-600 rounded font-bold inline-block"
+          <div className="mt-5 flex flex-col">
+            <button
+              to="/"
+              className="bg-indigo-500 hover:bg-indigo-700 text-sm text-white py-2 px-12 rounded font-medium tracking-wide"
             >
-              Sign up instead
-            </Link>
-            <button className="bg-indigo-500 hover:bg-indigo-700 text-sm text-white py-2 px-6 rounded font-bold">
-              Next
+              Sign in
             </button>
+            <div className="text-gray-700 py-6 text-sm">
+              <a href="">Forgot Password? </a> - <a href="">Sign up for an account</a>
+            </div>
           </div>
         </form>
       </div>
