@@ -40,6 +40,16 @@ const Reducer = (state, action) => {
           token: action.data.token
         }
       };
+    case "LOGOUT":
+      return {
+        ...state,
+        user: {
+          username: "",
+          fullname: "",
+          email: "",
+          token: ""
+        }
+      };
     default:
       break;
   }

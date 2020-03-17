@@ -1,6 +1,7 @@
 import React from "react";
 import { useSetState } from "react-use";
 
+import { UseAppContextValue } from "../../../context";
 import Layout from "./layout";
 
 const AuthSignin = props => {
@@ -8,6 +9,7 @@ const AuthSignin = props => {
     username: "",
     password: ""
   });
+  const [, dispatch] = UseAppContextValue();
 
   const onSignIn = e => {
     const form = new URLSearchParams();
@@ -26,7 +28,19 @@ const AuthSignin = props => {
       body: form
     })
       .then(r => r.json())
-      .then(e => console.log(e));
+      .then(r => {
+        // set to react context
+        const data = {
+          username: r.username,
+          fullname: r.fullname,
+          email: r.email,
+          token: r.accessToken
+        };
+        dispatch({ type: "AUTHENTICATE", data });
+
+        // redirect after success login
+        props.history.push("/");
+      });
 
     e.preventDefault();
   };
