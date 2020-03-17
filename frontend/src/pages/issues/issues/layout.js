@@ -22,13 +22,13 @@ const Item = props => (
     {/* <div className="px-2">
       <input type="checkbox" />
     </div> */}
-    <div className="pl-2 w-20 text-gray-600 text-xs">{props.id}</div>
+    <div className="pl-2 w-24 text-gray-600">{props.id}</div>
     <div className="px-2 flex-1 truncate">
       <span className="text-gray-900 font-lighter tracking-wide">{props.body}</span>
     </div>
     <div className="px-1">
       <div className="flex justify-end items-center">
-        <div className="flex justify-between text-xs">
+        <div className="flex justify-between">
           <div className="px-2 ml-1 inline-block border border-gray-200 text-red-700 rounded-lg">
             <Octicon icon={PrimitiveDotIcon} />
             <span className="ml-1">Bug</span>
@@ -43,6 +43,7 @@ const Item = props => (
           <img
             src="https://avatars.slack-edge.com/2020-02-13/949588721668_1ea008d5d04743ef5131_72.png"
             className="rounded-full inline-block w-6"
+            alt="avatar"
           />
         </div>
       </div>
@@ -51,21 +52,21 @@ const Item = props => (
 );
 
 const AppIssuesLayout = props => {
-  const { path } = useRouteMatch();
+  const { url } = useRouteMatch();
 
   return (
     <div className="h-screen flex flex-col">
       <header className="flex justify-between items-center py-3 border-b border-gray-200">
         <h1 className="tracking-wider font-medium px-5 flex-1">Active Issues</h1>
         <div className="px-5">
-          <Link to={`${path}create`} className="bg-indigo-500 py-1 px-2 text-white rounded text-sm">
+          <Link to={`${url}/create`} className="bg-indigo-500 py-1 px-2 text-white rounded text-sm">
             <Octicon icon={PlusIcon} />
           </Link>
         </div>
       </header>
       <div className="overflow-y-auto flex-1 pb-5">
         <Separator title="Ready for testing" />
-        <Item id="XDM-30385" body="Responsive Variations for `sticky-top`" />
+        <Item id="XDM-1" body="Responsive Variations for `sticky-top`" />
         <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
         <Item id="XDM-30360" body="Segoe UI clipping with overflow:hidden" />
         <Item

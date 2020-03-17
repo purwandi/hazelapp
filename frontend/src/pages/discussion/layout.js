@@ -7,10 +7,11 @@ const CommentItem = () => {
         <img
           src="https://avatars.slack-edge.com/2020-02-13/949588721668_1ea008d5d04743ef5131_72.png"
           className="rounded inline-block"
+          alt="avatar"
         />
       </div>
       <div className="pl-2 tracking-wide flex-1">
-        <a href="" className="font-semibold">
+        <a href="/" className="font-semibold">
           Member
         </a>
         <span className="ml-2 text-gray-700 text-xs">11:10 AM</span>

@@ -1,0 +1,36 @@
+.app-editor {
+  @apply py-4;
+}
+
+.app-editor h1 {
+  @apply text-2xl tracking-wide my-4;
+}
+
+.app-editor h2 {
+  @apply text-xl my-2;
+  font-weight: 400 !important;
+}
+
+.app-editor h3 {
+  @apply text-lg my-2 font-medium;
+}
+
+.app-editor p,
+.app-editor ul,
+.app-editor ol,
+.app-editor .code-block {
+  @apply text-sm;
+  @apply mb-4 !important;
+  line-height: 1.5 !important;
+}
+
+.app-editor ol {
+  list-style-type: decimal;
+}
+.app-editor ul {
+  list-style-type: disc;
+}
+
+.app-editor ul.checkbox_list li {
+  list-style: none;
+}

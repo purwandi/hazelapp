@@ -1,11 +1,5 @@
 import React from "react";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
-
-const FormContainer = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-`;
 
 const Layout = () => {
   return (
@@ -17,8 +11,7 @@ const Layout = () => {
           </div>
         </div>
       </div>
-
-      <FormContainer className="pl-4 pr-4 pt-4">
+      <div className="pl-4 pr-4 pt-4">
         <h1 className="h2 mb-1">Create Project</h1>
         <p className="text-gray">Create new project to manage your</p>
         <form>
@@ -39,7 +32,7 @@ const Layout = () => {
             </Link>
           </div>
         </form>
-      </FormContainer>
+      </div>
     </React.Fragment>
   );
 };
