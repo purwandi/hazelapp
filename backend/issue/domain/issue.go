@@ -70,7 +70,11 @@ func (i *Issue) ChangeBody(body string) error {
 }
 
 func (i *Issue) ChangeState(state string) error {
-	if state != Open || state != Closed {
+	if state != Open {
+		return IssueError{IssueErrorUndefinedIssueState}
+	}
+
+	if state != Closed {
 		return IssueError{IssueErrorUndefinedIssueState}
 	}
 
