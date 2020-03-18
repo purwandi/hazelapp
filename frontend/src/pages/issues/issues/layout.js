@@ -1,11 +1,11 @@
-import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import React from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 import Octicon, {
   Plus as PlusIcon,
-  PrimitiveDot as PrimitiveDotIcon
-} from "@primer/octicons-react";
+  PrimitiveDot as PrimitiveDotIcon,
+} from '@primer/octicons-react';
 
-const Separator = props => (
+const Separator = (props) => (
   <div className="flex border-b border-gray-400 px-3 py-1 bg-gray-100 text-sm">
     {/* <div className="px-2">
       <input type="checkbox" />
@@ -17,7 +17,7 @@ const Separator = props => (
   </div>
 );
 
-const Item = props => (
+const Item = (props) => (
   <div className="flex justify-between items-center border-b border-gray-200 px-3 py-1 text-sm">
     {/* <div className="px-2">
       <input type="checkbox" />
@@ -51,7 +51,7 @@ const Item = props => (
   </div>
 );
 
-const AppIssuesLayout = props => {
+const AppIssuesLayout = (props) => {
   const { url } = useRouteMatch();
 
   return (

@@ -1,8 +1,6 @@
-import React from "react";
-import Layout from "./layout";
+import React from 'react';
+import Layout from './layout';
 
-const AppDiscussion = props => {
-  return <Layout {...props} />;
-};
+const AppDiscussion = (props) => <Layout {...props} />;
 
 export default AppDiscussion;

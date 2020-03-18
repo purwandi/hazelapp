@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./app";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './app';
 
-import "./styles/index.css";
+import './styles/index.css';
 
-require("dotenv").config();
+require('dotenv').config();
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));

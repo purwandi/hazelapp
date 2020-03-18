@@ -1,8 +1,8 @@
-import React from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import React from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-import IssueList from "./issues";
-import IssueCreate from "./create";
+import IssueList from './issues';
+import IssueCreate from './create';
 
 const IssueRouter = () => {
   const { path } = useRouteMatch();

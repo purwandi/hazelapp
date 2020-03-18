@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@primer/octicons-react": "^9.6.0",
+    "autoprefixer": "^9.7.4",
     "dotenv": "^8.2.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
@@ -13,7 +14,9 @@
     "react-scripts": "3.4.0",
     "react-use": "^13.27.0",
     "rich-markdown-editor": "^10.0.0-3",
-    "store": "^2.0.12"
+    "store": "^2.0.12",
+    "tailwindcss": "^1.2.0",
+    "postcss-import": "^12.0.1"
   },
   "scripts": {
     "build:css": "postcss src/styles/tailwind.css -o src/styles/index.css",
@@ -40,7 +43,6 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^9.7.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.1",
@@ -48,8 +50,6 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "node-sass": "^4.13.1",
-    "postcss-cli": "^7.1.0",
-    "postcss-import": "^12.0.1",
-    "tailwindcss": "^1.2.0"
+    "postcss-cli": "^7.1.0"
   }
 }

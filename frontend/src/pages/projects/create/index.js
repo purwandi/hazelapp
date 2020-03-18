@@ -1,9 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import Layout from "./layout";
+import Layout from './layout';
 
-const ProjectCreate = props => {
-  return <Layout {...props} />;
-};
+const ProjectCreate = (props) => <Layout {...props} />;
 
 export default ProjectCreate;

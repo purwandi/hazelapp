@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const Header = props => {
+const Header = (props) => {
   const { Actions } = props;
   return (
     <div className="pl-4 pr-4 pt-2 pb-2 border-bottom">

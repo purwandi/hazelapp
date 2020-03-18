@@ -1,6 +1,6 @@
-import React from "react";
-import Layout from "./layout";
+import React from 'react';
+import Layout from './layout';
 
-const Issues = props => <Layout {...props} />;
+const Issues = (props) => <Layout {...props} />;
 
 export default Issues;

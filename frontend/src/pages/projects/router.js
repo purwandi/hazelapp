@@ -1,8 +1,8 @@
-import React from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import React from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-import ProjectList from "./index";
-import ProjectCreate from "./create";
+import ProjectList from './index';
+import ProjectCreate from './create';
 
 const ProjectRouter = () => {
   const { path } = useRouteMatch();

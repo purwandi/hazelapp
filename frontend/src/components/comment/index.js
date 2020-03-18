@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const CommentForm = () => (
   <div className="flex">
@@ -14,7 +14,7 @@ const CommentForm = () => (
         className="block px-3 py-3 w-full text-sm border border-gray-300 rounded shadow-inner"
         placeholder="Leave a comment"
         rows="4"
-      ></textarea>
+      />
       <div className="absolute bottom-0 right-0 p-2">
         <button
           type="submit"
@@ -27,12 +27,10 @@ const CommentForm = () => (
   </div>
 );
 
-const Comment = () => {
-  return (
-    <div className="my-6 py-6 border-t border-gray-400">
-      <CommentForm />
-    </div>
-  );
-};
+const Comment = () => (
+  <div className="my-6 py-6 border-t border-gray-400">
+    <CommentForm />
+  </div>
+);
 
 export default Comment;

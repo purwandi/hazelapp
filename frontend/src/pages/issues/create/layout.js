@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Octicon, { ChevronLeft as ChevronLeftIcon, Gear as GearIcon } from "@primer/octicons-react";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Octicon, { ChevronLeft as ChevronLeftIcon, Gear as GearIcon } from '@primer/octicons-react';
 
-import AppEditor from "../../../components/editor";
-import AppComment from "../../../components/comment";
+import AppEditor from '../../../components/editor';
+import AppComment from '../../../components/comment';
 
 const IssueSidebar = () => (
   <div className="w-64 text-sm py-10 px-8 border-l border-gray-200">
@@ -20,7 +20,9 @@ const IssueSidebar = () => (
         <Octicon icon={GearIcon} />
       </div>
       <div className="text-xs text-gray-700">
-        No one - <span className="cursor-pointer hover:text-indigo-500">assign yourself</span>
+        No one -
+        {' '}
+        <span className="cursor-pointer hover:text-indigo-500">assign yourself</span>
       </div>
     </div>
     <div className="mt-3 pt-3">
@@ -83,12 +85,12 @@ const IssueHeader = () => (
 );
 
 const Layout = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   return (
     <div className="h-screen flex flex-col">
       <IssueHeader />
       <div className="flex-1 flex justify-between overflow-y-auto">
-        <div className="px-10 max-w-screen-md mx-auto">
+        <div className="px-10 w-screen-md mx-auto">
           <AppEditor value={value} setValue={setValue} />
           <AppComment />
         </div>

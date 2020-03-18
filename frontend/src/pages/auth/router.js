@@ -1,11 +1,11 @@
-import React from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import React from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-import AuthSignin from "./signin";
-import AuthSignup from "./signup";
+import AuthSignin from './signin';
+import AuthSignup from './signup';
 
 const AuthRouter = () => {
-  let { path } = useRouteMatch();
+  const { path } = useRouteMatch();
   return (
     <Switch>
       <Route path={`${path}/signin`} component={AuthSignin} exact />
