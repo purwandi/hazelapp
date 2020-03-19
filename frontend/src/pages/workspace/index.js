@@ -1,6 +1,18 @@
-import React from 'react';
-import Layout from './layout';
+import React from "react";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
-const Workspace = (props) => <Layout {...props} />;
+import WorkspaceCreate from "./create";
+import WorkspaceIndex from "./board";
 
-export default Workspace;
+const WorkspaceRouter = () => {
+  const { path } = useRouteMatch();
+  console.log(path);
+  return (
+    <Switch>
+      <Route path={`${path}create`} exact component={WorkspaceCreate} />
+      <Route path={`${path}`} exact component={WorkspaceIndex} />
+    </Switch>
+  );
+};
+
+export default WorkspaceRouter;

@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import Navigation from './nav';
-import AppContainerRouter from './router';
+import Navigation from "./nav";
+import AppContainerRouter from "./router";
 
-const AppContainer = (props) => (
+const AppContainer = props => (
   <div className="h-screen flex">
-    <div className="bg-gray-100 w-56 p-3 border-r border-gray-400 overflow-auto">
+    <div className="bg-gray-100 w-56 p-3 border-r border-gray-400">
       <Navigation {...props} />
     </div>
     <div className="flex-1 min-w-0 bg-white">

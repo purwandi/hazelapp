@@ -1,22 +1,24 @@
 import React from 'react';
-import {
-  BrowserRouter as Router, Switch, Route, Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { ApolloProvider } from 'react-apollo';
 
 import AppAuth from './pages/auth/router';
 import AppContainer from './container';
 
 import { AppProvider, UseAppContextValue } from './context';
+import { CreateApolloClient } from './graphql';
 
-const AppRouter = () => {
-  const [AppStateContext] = UseAppContextValue();
+const AppRouter = withRouter(props => {
+  const { match, history, location } = props;
+  const [AppStateContext, dispatch] = UseAppContextValue();
+  const ApolloClient = CreateApolloClient(AppStateContext, dispatch, { match, history, location });
   return (
-    <Router>
+    <ApolloProvider client={ApolloClient}>
       <Switch>
         <Route path="/auth" component={AppAuth} />
         <Route
           path="/"
-          render={(props) => {
+          render={props => {
             if (AppStateContext.user.token === '') {
               return <Redirect to="/auth/signin" />;
             }
@@ -24,13 +26,15 @@ const AppRouter = () => {
           }}
         />
       </Switch>
-    </Router>
+    </ApolloProvider>
   );
-};
+});
 
 const App = () => (
   <AppProvider>
-    <AppRouter />
+    <Router>
+      <AppRouter />
+    </Router>
   </AppProvider>
 );
 
