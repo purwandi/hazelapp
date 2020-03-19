@@ -15,7 +15,7 @@ type ProjectResolver struct {
 }
 
 func (p *ProjectResolver) ID() graphql.ID {
-	return graphql.ID(helpers.EncryptCursor(string(p.Field.ID)))
+	return graphql.ID(helpers.EncryptID(string(p.Field.ID)))
 }
 
 func (p *ProjectResolver) OwnerID() int32 {

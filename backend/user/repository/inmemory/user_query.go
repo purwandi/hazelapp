@@ -35,6 +35,11 @@ func (query *UserQueryInMemory) FindUser(args *types.FindUserInput) <-chan repos
 				user = item
 				break
 			}
+
+			if args.AccessToken != nil && *args.AccessToken == item.AccessToken {
+				user = item
+				break
+			}
 		}
 
 		result <- repository.QueryResult{Result: user}

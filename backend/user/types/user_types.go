@@ -14,7 +14,8 @@ type LoginUserInput struct {
 }
 
 type FindUserInput struct {
-	ID       *int
-	Email    *string
-	Username *string
+	ID          *int
+	Email       *string
+	Username    *string
+	AccessToken *string
 }

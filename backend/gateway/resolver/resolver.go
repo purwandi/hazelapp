@@ -31,6 +31,8 @@ func NewResolver() *Resolver {
 		ProjectStorage := StorageProject.NewProjectStorage()
 		UserStorage := StorageUser.NewUserStorage()
 
+		UserStorage.Demo()
+
 		resolver.ProjectService = ServiceProject.NewProjectService(
 			RepositoryInMemoryProject.NewProjectQueryInMemory(ProjectStorage),
 			RepositoryInMemoryProject.NewProjectRepositoryInMemory(ProjectStorage),

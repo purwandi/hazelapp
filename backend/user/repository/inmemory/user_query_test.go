@@ -28,4 +28,8 @@ func TestCanFindUser(t *testing.T) {
 	// When find user by username
 	result = <-query.FindUser(&types.FindUserInput{Username: helpers.String("foobar")})
 	assert.Equal(t, 1, result.Result.(domain.User).ID)
+
+	// When find user by username
+	result = <-query.FindUser(&types.FindUserInput{AccessToken: helpers.String("a8340b1d-1293-4efa-8da1-e2fa26dfa740")})
+	assert.Equal(t, 1, result.Result.(domain.User).ID)
 }
