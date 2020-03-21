@@ -5,6 +5,7 @@ import (
 
 	"github.com/purwandi/hazelapp/helpers"
 	"github.com/purwandi/hazelapp/project/types"
+	"github.com/purwandi/hazelapp/user/domain"
 	"github.com/sirupsen/logrus"
 )
 
@@ -17,11 +18,16 @@ type CreateProjectInput struct {
 
 // ProjectCreate to create new project
 func (r *Resolver) ProjectCreate(ctx context.Context, args struct{ Input CreateProjectInput }) (*ProjectResolver, error) {
-	// TODO : Neet to change to current user id if not present
+	user := ctx.Value("viewer").(domain.User)
 	input := types.CreateProjectInput{
-		OwnerID:     int(helpers.Int32Value(args.Input.OwnerID)),
 		Name:        args.Input.Name,
 		Description: args.Input.Description,
+	}
+
+	if args.Input.OwnerID != nil {
+		input.OwnerID = int(helpers.Int32Value(args.Input.OwnerID))
+	} else {
+		input.OwnerID = user.ID
 	}
 
 	project, err := r.ProjectService.CreateProject(input)

@@ -7,7 +7,19 @@ type CreateProjectInput struct {
 	Description *string
 }
 
-type GetProjectsInput struct{}
+type ProjectOrder struct {
+	Field     string
+	Direction string
+}
+
+type GetProjectsInput struct {
+	OwnerID int
+	After   *int
+	Before  *int
+	First   *int
+	Last    *int
+	OrderBy *ProjectOrder
+}
 
 type FindProjectInput struct {
 	OwnerID int

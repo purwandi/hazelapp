@@ -56,16 +56,17 @@ func (s *ProjectService) CreateProject(args types.CreateProjectInput) (domain.Pr
 	return *project, nil
 }
 
-// func (s *ProjectService) FindAllProject() ([]domain.Project, error) {
-// 	// process
-// 	result := <-s.query.FindAll()
-// 	if result.Error != nil {
-// 		return []domain.Project{}, result.Error
-// 	}
+// GetProjects is to get project
+func (s *ProjectService) GetProjects(args types.GetProjectsInput) ([]domain.Project, error) {
+	// process
+	result := <-s.query.GetProjects(args)
+	if result.Error != nil {
+		return []domain.Project{}, result.Error
+	}
 
-// 	// response
-// 	return result.Result.([]domain.Project), nil
-// }
+	// response
+	return result.Result.([]domain.Project), nil
+}
 
 // func (s *ProjectService) FindProjectByID(id uuid.UUID) (domain.Project, error) {
 // 	// process

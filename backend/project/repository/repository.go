@@ -5,10 +5,20 @@ import (
 	"github.com/purwandi/hazelapp/project/types"
 )
 
+// PageInfo is describe pagination
+type PageInfo struct {
+	StartCursor     int
+	EndCursor       int
+	HasNextPage     *bool
+	HasPreviousPage *bool
+}
+
 // QueryResult is to wrap query result
 type QueryResult struct {
-	Result interface{}
-	Error  error
+	Result   interface{}
+	Total    int
+	Error    error
+	PageInfo PageInfo
 }
 
 // ProjectRepository is an interface for project repository

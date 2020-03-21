@@ -1,24 +1,39 @@
 package resolver
 
-// func (r *Resolver) Projects(ctx context.Context) (*ProjectConnectionResolver, error) {
-// 	result, err := r.ProjectService.FindAllProject()
-// 	if err != nil {
-// 		return nil, err
-// 	}
+import (
+	"context"
 
-// 	projects := make([]*ProjectResolver, len(result))
-// 	for i, project := range result {
-// 		projects[i] = &ProjectResolver{
-// 			Field:    project,
-// 			Resolver: r,
-// 		}
-// 	}
+	"github.com/purwandi/hazelapp/project/types"
+)
 
-// 	return &ProjectConnectionResolver{
-// 		Projects: projects,
-// 		Count:    len(result),
-// 	}, nil
-// }
+type GetProjectsInput struct {
+	First  *string
+	Last   *string
+	After  string
+	Before string
+}
+
+func (r *Resolver) Projects(ctx context.Context, args struct{ Input GetProjectsInput }) (*ProjectConnectionResolver, error) {
+	input := types.GetProjectsInput{}
+
+	result, err := r.ProjectService.GetProjects(input)
+	if err != nil {
+		return nil, err
+	}
+
+	projects := make([]*ProjectResolver, len(result))
+	for i, project := range result {
+		projects[i] = &ProjectResolver{
+			Field:    project,
+			Resolver: r,
+		}
+	}
+
+	return &ProjectConnectionResolver{
+		Projects: projects,
+		Count:    len(result),
+	}, nil
+}
 
 // func (r *Resolver) Project(ctx context.Context, args struct{ ID graphql.ID }) (*ProjectResolver, error) {
 // 	uid, err := uuid.FromString(string(args.ID))

@@ -12,7 +12,7 @@ type UserResolver struct {
 }
 
 func (u *UserResolver) ID() graphql.ID {
-	return graphql.ID(helpers.EncryptID(string(u.Field.ID)))
+	return graphql.ID(helpers.EncryptID("user", u.Field.ID))
 }
 
 func (u *UserResolver) Fullname() string {

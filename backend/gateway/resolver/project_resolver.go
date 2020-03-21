@@ -1,6 +1,7 @@
 package resolver
 
 import (
+	"context"
 	"time"
 
 	"github.com/graph-gophers/graphql-go"
@@ -14,59 +15,72 @@ type ProjectResolver struct {
 	Resolver *Resolver
 }
 
+// ID get project ID
 func (p *ProjectResolver) ID() graphql.ID {
-	return graphql.ID(helpers.EncryptID(string(p.Field.ID)))
+	return graphql.ID(helpers.EncryptID("project", p.Field.ID))
 }
 
-func (p *ProjectResolver) OwnerID() int32 {
-	return int32(p.Field.OwnerID)
+// Owner get project owner
+func (p *ProjectResolver) Owner() (*UserResolver, error) {
+	return p.Resolver.User(
+		context.Background(),
+		UserLoginInput{Login: helpers.EncryptID("user", p.Field.OwnerID)},
+	)
 }
 
+// Name get project name
 func (p *ProjectResolver) Name() string {
 	return p.Field.Name
 }
 
+// Description get project description
 func (p *ProjectResolver) Description() *string {
 	return helpers.String(p.Field.Description)
 }
 
+// CreatedAt is to get project creation date
 func (p *ProjectResolver) CreatedAt() string {
 	return p.Field.CreatedAt.Format(time.RFC3339)
 }
 
-// type ProjectEdgeResolver struct {
-// 	cursor graphql.ID
-// 	Field  *ProjectResolver
-// }
+// ProjectConnectionResolver is to get project connection
+type ProjectConnectionResolver struct {
+	Projects []*ProjectResolver
+	Count    int
+	From     string
+	To       string
+}
 
-// func (r *ProjectEdgeResolver) Cursor() graphql.ID {
-// 	return graphql.ID(r.Field.ID())
-// }
+// TotalCount to get project total
+func (r *ProjectConnectionResolver) TotalCount() int32 {
+	return int32(r.Count)
+}
 
-// func (r *ProjectEdgeResolver) Node() *ProjectResolver {
-// 	return r.Field
-// }
+// Edges to get project edges
+func (r *ProjectConnectionResolver) Edges() *[]*ProjectEdgeResolver {
+	projects := make([]*ProjectEdgeResolver, len(r.Projects))
 
-// type ProjectConnectionResolver struct {
-// 	Projects []*ProjectResolver
-// 	Count    int
-// 	From     string
-// 	To       string
-// }
+	for i, project := range r.Projects {
+		projects[i] = &ProjectEdgeResolver{
+			cursor: project.ID(),
+			Field:  project,
+		}
+	}
+	return &projects
+}
 
-// func (r *ProjectConnectionResolver) TotalCount() int32 {
-// 	return int32(r.Count)
-// }
+// ProjectEdgeResolver is to wrap project edges
+type ProjectEdgeResolver struct {
+	cursor graphql.ID
+	Field  *ProjectResolver
+}
 
-// func (r *ProjectConnectionResolver) Edges() *[]*ProjectEdgeResolver {
-// 	projects := make([]*ProjectEdgeResolver, len(r.Projects))
+// Cursor to get project pagination cursor
+func (r *ProjectEdgeResolver) Cursor() graphql.ID {
+	return graphql.ID(r.Field.ID())
+}
 
-// 	for i, project := range r.Projects {
-// 		projects[i] = &ProjectEdgeResolver{
-// 			cursor: project.ID(),
-// 			Field:  project,
-// 		}
-// 	}
-
-// 	return &projects
-// }
+// Node get project pagination node
+func (r *ProjectEdgeResolver) Node() *ProjectResolver {
+	return r.Field
+}

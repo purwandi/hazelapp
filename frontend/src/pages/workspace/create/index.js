@@ -6,11 +6,16 @@ import { useMutation } from '@apollo/react-hooks';
 import Layout from './layout';
 
 const CREATE_PROJECT = gql`
-  mutation CreateProject($name: String!, $description: String) {
+  mutation($name: String!, $description: String) {
     ProjectCreate(input: { name: $name, description: $description }) {
       id
       name
       description
+      owner {
+        id
+        fullname
+        email
+      }
     }
   }
 `;
