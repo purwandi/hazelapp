@@ -3,26 +3,56 @@ package resolver
 import (
 	"context"
 
+	"github.com/purwandi/hazelapp/helpers"
 	"github.com/purwandi/hazelapp/project/types"
 )
 
+// GetProjectsInput is get projects inputs
 type GetProjectsInput struct {
-	First  *string
-	Last   *string
-	After  string
-	Before string
+	First  *int32
+	Last   *int32
+	After  *string
+	Before *string
 }
 
-func (r *Resolver) Projects(ctx context.Context, args struct{ Input GetProjectsInput }) (*ProjectConnectionResolver, error) {
-	input := types.GetProjectsInput{}
+// Projects is get projects
+func (r *Resolver) Projects(ctx context.Context, owner int, args struct{ Input *GetProjectsInput }) (*ProjectConnectionResolver, error) {
+	var after *int
+	var before *int
+
+	// TODO refactor into separated function
+	if args.Input.After != nil {
+		inputAfter, err := helpers.DecryptID("project", *args.Input.After)
+		if err != nil {
+			return nil, err
+		}
+		after = &inputAfter
+	}
+
+	// TODO refactor into separated function
+	if args.Input.Before != nil {
+		inputBefore, err := helpers.DecryptID("project", *args.Input.Before)
+		if err != nil {
+			return nil, err
+		}
+		before = &inputBefore
+	}
+
+	input := types.GetProjectsInput{
+		OwnerID: owner,
+		First:   helpers.Int32ValueToInt(args.Input.First),
+		Last:    helpers.Int32ValueToInt(args.Input.Last),
+		After:   after,
+		Before:  before,
+	}
 
 	result, err := r.ProjectService.GetProjects(input)
 	if err != nil {
 		return nil, err
 	}
 
-	projects := make([]*ProjectResolver, len(result))
-	for i, project := range result {
+	projects := make([]*ProjectResolver, len(result.Projects))
+	for i, project := range result.Projects {
 		projects[i] = &ProjectResolver{
 			Field:    project,
 			Resolver: r,
@@ -30,24 +60,8 @@ func (r *Resolver) Projects(ctx context.Context, args struct{ Input GetProjectsI
 	}
 
 	return &ProjectConnectionResolver{
-		Projects: projects,
-		Count:    len(result),
+		Count:     result.Total,
+		Projects:  projects,
+		Paginator: result.PageInfo,
 	}, nil
 }
-
-// func (r *Resolver) Project(ctx context.Context, args struct{ ID graphql.ID }) (*ProjectResolver, error) {
-// 	uid, err := uuid.FromString(string(args.ID))
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	result, err := r.ProjectService.FindProjectByID(uid)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	return &ProjectResolver{
-// 		Field:    result,
-// 		Resolver: r,
-// 	}, nil
-// }

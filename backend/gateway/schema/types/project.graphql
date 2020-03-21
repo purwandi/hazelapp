@@ -1,9 +1,24 @@
 type Project {
   id: ID!
   name: String!
+  owner: User!
   description: String
   createdAt: String!
 }
+
+type ProjectConnection {
+  edges: [ProjectEdge]
+  nodes: [Project]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ProjectEdge {
+  cursor: ID!
+  node: Project
+}
+
+# Input
 
 input CreateProjectInput {
   # The ID of the owner for the new project.
@@ -14,12 +29,9 @@ input CreateProjectInput {
   description: String
 }
 
-type ProjectConnection {
-  totalCount: Int!
-  edges: [ProjectEdge]
-}
-
-type ProjectEdge {
-  cursor: ID!
-  node: Project
+input GetProjectsInput {
+  first: Int
+  last: Int
+  after: String
+  before: String
 }

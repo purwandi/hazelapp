@@ -4,8 +4,14 @@ import (
 	"github.com/purwandi/hazelapp/project/domain"
 	"github.com/purwandi/hazelapp/project/repository"
 	"github.com/purwandi/hazelapp/project/types"
-	"github.com/sirupsen/logrus"
 )
+
+// ProjectCollectionResult is to wrap project collections result
+type ProjectCollectionResult struct {
+	Projects []domain.Project
+	Total    int
+	PageInfo repository.PageInfo
+}
 
 // ProjectService is to wrap project service domain
 type ProjectService struct {
@@ -50,31 +56,22 @@ func (s *ProjectService) CreateProject(args types.CreateProjectInput) (domain.Pr
 		return domain.Project{}, err
 	}
 
-	logrus.Info(project)
-
 	// response
 	return *project, nil
 }
 
 // GetProjects is to get project
-func (s *ProjectService) GetProjects(args types.GetProjectsInput) ([]domain.Project, error) {
+func (s *ProjectService) GetProjects(args types.GetProjectsInput) (ProjectCollectionResult, error) {
 	// process
 	result := <-s.query.GetProjects(args)
 	if result.Error != nil {
-		return []domain.Project{}, result.Error
+		return ProjectCollectionResult{}, result.Error
 	}
 
 	// response
-	return result.Result.([]domain.Project), nil
+	return ProjectCollectionResult{
+		Projects: result.Result.([]domain.Project),
+		Total:    result.Total,
+		PageInfo: result.PageInfo,
+	}, nil
 }
-
-// func (s *ProjectService) FindProjectByID(id uuid.UUID) (domain.Project, error) {
-// 	// process
-// 	result := <-s.query.FindProjectByID(id)
-// 	if result.Error != nil {
-// 		return domain.Project{}, result.Error
-// 	}
-
-// 	// response
-// 	return result.Result.(domain.Project), nil
-// }

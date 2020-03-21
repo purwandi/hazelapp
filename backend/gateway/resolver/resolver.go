@@ -13,6 +13,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// Resolver is root resolver
 type Resolver struct {
 	UserService      *ServiceUser.UserService
 	ProjectService   *ServiceProject.ProjectService
@@ -20,6 +21,7 @@ type Resolver struct {
 	MilestoneService *ServiceIssue.MilestoneService
 }
 
+// NewResolver is to create new Resolver instance
 func NewResolver() *Resolver {
 	resolver := &Resolver{}
 
@@ -28,10 +30,11 @@ func NewResolver() *Resolver {
 	default:
 		logrus.Fatal("DB driver is not configurable yet")
 	case "inmemory":
-		ProjectStorage := StorageProject.NewProjectStorage()
 		UserStorage := StorageUser.NewUserStorage()
+		ProjectStorage := StorageProject.NewProjectStorage()
 
 		UserStorage.Demo()
+		ProjectStorage.Demo()
 
 		resolver.ProjectService = ServiceProject.NewProjectService(
 			RepositoryInMemoryProject.NewProjectQueryInMemory(ProjectStorage),

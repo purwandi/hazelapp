@@ -121,3 +121,28 @@ func TestCanGetBeforeLastProjects(t *testing.T) {
 		EndCursor:   14,
 	}, result.PageInfo)
 }
+
+func TestCanNotGetProjects(t *testing.T) {
+	// Given
+	store := storage.NewProjectStorage()
+	query := NewProjectQueryInMemory(store)
+	first := 10
+
+	input := types.GetProjectsInput{
+		OwnerID: 1,
+		First:   &first,
+	}
+
+	// When
+	result := <-query.GetProjects(input)
+
+	projects := result.Result.([]domain.Project)
+
+	// Then
+	assert.NoError(t, result.Error)
+	assert.Equal(t, 0, len(projects))
+	assert.Equal(t, repository.PageInfo{
+		StartCursor: 0,
+		EndCursor:   0,
+	}, result.PageInfo)
+}

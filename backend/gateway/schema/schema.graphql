@@ -5,9 +5,7 @@ schema {
 
 type Query {
   viewer(): User!
-  # projects(): ProjectConnection!
-  # project(id: ID!): Project!
-  # milestones(input: GetMilestoneQueryInput) [Milestone]
+  user(login: String!): User!
 }
 
 type Mutation {

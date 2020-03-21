@@ -7,10 +7,12 @@ import (
 	"github.com/purwandi/hazelapp/user/domain"
 )
 
+// UserLoginInput is graphql user input
 type UserLoginInput struct {
 	Login string
 }
 
+// Viewer is to get current viewer
 func (r *Resolver) Viewer(ctx context.Context) (*UserResolver, error) {
 	ViewerUser := ctx.Value("viewer")
 
@@ -20,6 +22,7 @@ func (r *Resolver) Viewer(ctx context.Context) (*UserResolver, error) {
 	}, nil
 }
 
+// User is to get user by login
 func (r *Resolver) User(ctx context.Context, args UserLoginInput) (*UserResolver, error) {
 	userID, err := helpers.DecryptID("user-", args.Login)
 	if err != nil {

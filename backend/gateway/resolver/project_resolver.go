@@ -7,6 +7,7 @@ import (
 	"github.com/graph-gophers/graphql-go"
 	"github.com/purwandi/hazelapp/helpers"
 	"github.com/purwandi/hazelapp/project/domain"
+	"github.com/purwandi/hazelapp/project/repository"
 )
 
 // ProjectResolver is a struct to resolve project domain
@@ -45,15 +46,9 @@ func (p *ProjectResolver) CreatedAt() string {
 
 // ProjectConnectionResolver is to get project connection
 type ProjectConnectionResolver struct {
-	Projects []*ProjectResolver
-	Count    int
-	From     string
-	To       string
-}
-
-// TotalCount to get project total
-func (r *ProjectConnectionResolver) TotalCount() int32 {
-	return int32(r.Count)
+	Projects  []*ProjectResolver
+	Paginator repository.PageInfo
+	Count     int
 }
 
 // Edges to get project edges
@@ -67,6 +62,24 @@ func (r *ProjectConnectionResolver) Edges() *[]*ProjectEdgeResolver {
 		}
 	}
 	return &projects
+}
+
+// Nodes to get available nodes
+func (r *ProjectConnectionResolver) Nodes() *[]*ProjectResolver {
+	return &r.Projects
+}
+
+// TotalCount to get project total
+func (r *ProjectConnectionResolver) TotalCount() int32 {
+	return int32(r.Count)
+}
+
+// PageInfo is resolves ...
+func (r *ProjectConnectionResolver) PageInfo() PageInfoResolver {
+	return PageInfoResolver{
+		startCursor: helpers.String(helpers.EncryptID("project", r.Paginator.StartCursor)),
+		endCursor:   helpers.String(helpers.EncryptID("project", r.Paginator.EndCursor)),
+	}
 }
 
 // ProjectEdgeResolver is to wrap project edges

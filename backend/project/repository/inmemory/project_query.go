@@ -84,6 +84,9 @@ func (query *ProjectQueryInMemory) GetProjects(args types.GetProjectsInput) <-ch
 
 		// Calculate total query
 		total = len(projects)
+		if total == 0 {
+			result <- repository.QueryResult{}
+		}
 
 		// Cursor
 		if args.After != nil {
@@ -126,15 +129,20 @@ func (query *ProjectQueryInMemory) GetProjects(args types.GetProjectsInput) <-ch
 		}
 
 		// Result
-		result <- repository.QueryResult{
+		res := repository.QueryResult{
 			Result: projects,
 			Total:  total,
-			PageInfo: repository.PageInfo{
+		}
+
+		if len(projects) > 0 {
+			res.PageInfo = repository.PageInfo{
 				StartCursor: projects[0].ID,
 				EndCursor:   projects[len(projects)-1].ID,
 				// Todo implement hasNextPage and endNextPage
-			},
+			}
 		}
+
+		result <- res
 		close(result)
 	}()
 
