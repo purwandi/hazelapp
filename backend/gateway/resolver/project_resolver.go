@@ -22,11 +22,8 @@ func (p *ProjectResolver) ID() graphql.ID {
 }
 
 // Owner get project owner
-func (p *ProjectResolver) Owner() (*UserResolver, error) {
-	return p.Resolver.User(
-		context.Background(),
-		UserLoginInput{Login: helpers.EncryptID("user", p.Field.OwnerID)},
-	)
+func (p *ProjectResolver) Owner(ctx context.Context) (*UserResolver, error) {
+	return p.Resolver.UserByID(ctx, p.Field.OwnerID)
 }
 
 // Name get project name

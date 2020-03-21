@@ -3,7 +3,6 @@ package resolver
 import (
 	"context"
 
-	"github.com/purwandi/hazelapp/helpers"
 	"github.com/purwandi/hazelapp/user/domain"
 )
 
@@ -24,11 +23,19 @@ func (r *Resolver) Viewer(ctx context.Context) (*UserResolver, error) {
 
 // User is to get user by login
 func (r *Resolver) User(ctx context.Context, args UserLoginInput) (*UserResolver, error) {
-	userID, err := helpers.DecryptID("user-", args.Login)
+	user, err := r.UserService.FindUserByUsername(args.Login)
 	if err != nil {
 		return nil, err
 	}
 
+	return &UserResolver{
+		Field:    user,
+		Resolver: r,
+	}, nil
+}
+
+// UserByID is to get user by id
+func (r *Resolver) UserByID(ctx context.Context, userID int) (*UserResolver, error) {
 	user, err := r.UserService.FindUserByID(userID)
 	if err != nil {
 		return nil, err
