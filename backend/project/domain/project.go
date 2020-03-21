@@ -5,7 +5,6 @@ import (
 
 	"github.com/purwandi/hazelapp/helpers"
 	"github.com/purwandi/hazelapp/project/types"
-	"github.com/sirupsen/logrus"
 )
 
 // ProjectService is
@@ -30,8 +29,7 @@ func CreateProject(service ProjectService, args types.CreateProjectInput) (*Proj
 		return nil, ProjectError{ProjectErrorNameIsBlank}
 	}
 
-	result, err := service.FindProject(types.FindProjectInput{OwnerID: args.OwnerID, Name: args.Name})
-	logrus.Info(result)
+	_, err := service.FindProject(types.FindProjectInput{OwnerID: args.OwnerID, Name: args.Name})
 	if err == nil {
 		return nil, ProjectError{ProjectErrorNameIsExists}
 	}

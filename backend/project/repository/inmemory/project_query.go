@@ -115,16 +115,16 @@ func (query *ProjectQueryInMemory) GetProjects(args types.GetProjectsInput) <-ch
 		// Get n first items
 		if args.First != nil {
 			limit := *args.First
-			if limit > cap(projects) {
-				limit = cap(projects)
+			if limit > len(projects) {
+				limit = len(projects)
 			}
 			projects = projects[:limit]
 		}
 
 		if args.Last != nil {
 			limit := *args.Last
-			if limit > cap(projects) {
-				limit = cap(projects)
+			if limit > len(projects) {
+				limit = len(projects)
 			}
 			offset := len(projects) - limit
 			projects = projects[offset:]
