@@ -85,7 +85,9 @@ func (query *ProjectQueryInMemory) GetProjects(args types.GetProjectsInput) <-ch
 		// Calculate total query
 		total = len(projects)
 		if total == 0 {
-			result <- repository.QueryResult{}
+			result <- repository.QueryResult{
+				Result: projects,
+			}
 		}
 
 		// Cursor
