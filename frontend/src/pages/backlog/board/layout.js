@@ -34,7 +34,7 @@ const Item = (props) => (
 );
 
 const Backlog = props => (
-  <div className="mb-10">
+  <div className="mb-8">
     <div className="flex items-center text-sm">
       <h2 className="font-semibold">{props.title}</h2>
       <div className="ml-3">
@@ -57,10 +57,6 @@ const Backlog = props => (
       <Item id="XDM-19436" body="Tooltip - jQuery data caching issue " />
       <Item id="XDM-20219" body="Support multiple targets for tabs " />
     </div>
-    <div className="text-sm text-gray-600 px-2 py-1 cursor-pointer">
-      <Octicon icon={PlusIcon} />
-      <span className="ml-1">Create issues</span>
-    </div>
   </div>
 )
 
@@ -70,7 +66,7 @@ const BacklogBoardLayout = () => {
       <Header name="Backlog" />
       <div className="flex-1 overflow-y-auto p-5">
         <Backlog title="Sprint 1" />
-        <Backlog title="Backlog" />
+        <Backlog title="Backlog" create />
       </div>
     </div>
   )
