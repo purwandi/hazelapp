@@ -4,12 +4,15 @@ import Octicon, {
   Home as HomeIcon,
   Tools as ToolsIcon,
   SignOut as SignOutIcon,
-  IssueOpened as IssueOpenedIcon,
   Note as NoteIcon,
+  Comment as CommentIcon,
   CommentDiscussion as CommentDiscussionIcon,
   Question as QuestionIcon,
   Organization as OrganizationIcon,
   Gear as GearIcon,
+  IssueReopened as IssueReopenedIcon,
+  Code as CodeIcon,
+  GitPullRequest as GitPullRequestIcon
 } from '@primer/octicons-react';
 import { UseAppContextValue } from '../../context';
 
@@ -18,10 +21,10 @@ const NavItem = props => {
   return (
     <Link
       to={props.to}
-      className={`rounded px-3 py-1 ${isActive} hover:bg-gray-200 block flex justify-between items-center rounded text-gray-900 cursor-pointer`}
+      className={`rounded px-3 text-gray-700 py-1 ${isActive} hover:bg-gray-200 block flex justify-between items-center rounded cursor-pointer`}
       {...props}
     >
-      <Octicon icon={props.icon} className="w-3 h-3" />
+      <Octicon icon={props.icon} className="w-4" />
       <span className="ml-2 flex-1">{props.label}</span>
     </Link>
   );
@@ -65,20 +68,22 @@ const Navigation = () => {
       <div className="overflow-auto flex-1 p-3 ">
         <nav className="tracking-wide text-sm">
           <NavItem icon={HomeIcon} to="/" label="Dashboard" active={true} />
+          <NavItem icon={CommentDiscussionIcon} to="/" label="Threads" />
           <NavItem icon={ToolsIcon} label="Settings" />
-          {/* <NavItem icon={SignOutIcon} label="Sign Out" onClick={e => dispatch({ type: 'LOGOUT' })} /> */}
         </nav>
         <nav className="mt-5 tracking-wide text-sm">
-          <h2 className="text-gray-700 font-semibold mb-2 px-3">Symfony</h2>
-          <NavItem icon={CommentDiscussionIcon} to="/" label="Discussion" />
+          <h2 className="text-gray-700 font-semibold mb-2 px-3 truncate" title="facebook">facebook</h2>
+          <NavItem icon={CommentIcon} to="/" label="Discussion" />
           <NavItem icon={NoteIcon} label="Backlog" />
-          <NavItem icon={IssueOpenedIcon} to="/" label="Issue" />
+          <NavItem icon={IssueReopenedIcon} to="/" label="Active Sprint" />
+          <NavItem icon={CodeIcon} label="Code" />
+          <NavItem icon={GitPullRequestIcon} label="Pull Request" />
           <NavItem icon={OrganizationIcon} to="/" label="Member" />
           <NavItem icon={GearIcon} label="Project Settings" />
         </nav>
       </div>
       <div className="p-3">
-        <nav className="mb-3 tracking-wide text-sm">
+        <nav className="mb-2 tracking-wide text-sm">
           <NavItem icon={QuestionIcon} label="Help" />
           <NavItem icon={SignOutIcon} label="Sign Out" onClick={e => dispatch({ type: 'LOGOUT' })} />
         </nav>

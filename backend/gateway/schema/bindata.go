@@ -88,7 +88,7 @@ func schemaSchemaGraphql() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "schema/schema.graphql", size: 342, mode: os.FileMode(420), modTime: time.Unix(1584765701, 0)}
+	info := bindataFileInfo{name: "schema/schema.graphql", size: 342, mode: os.FileMode(420), modTime: time.Unix(1584847814, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -108,7 +108,7 @@ func schemaTypesIssueGraphql() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "schema/types/issue.graphql", size: 538, mode: os.FileMode(420), modTime: time.Unix(1582451082, 0)}
+	info := bindataFileInfo{name: "schema/types/issue.graphql", size: 538, mode: os.FileMode(420), modTime: time.Unix(1584847814, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -128,7 +128,7 @@ func schemaTypesMilestoneGraphql() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "schema/types/milestone.graphql", size: 234, mode: os.FileMode(420), modTime: time.Unix(1582938477, 0)}
+	info := bindataFileInfo{name: "schema/types/milestone.graphql", size: 234, mode: os.FileMode(420), modTime: time.Unix(1584847814, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -148,7 +148,7 @@ func schemaTypesPaginationGraphql() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "schema/types/pagination.graphql", size: 112, mode: os.FileMode(420), modTime: time.Unix(1584779905, 0)}
+	info := bindataFileInfo{name: "schema/types/pagination.graphql", size: 112, mode: os.FileMode(420), modTime: time.Unix(1584847814, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -168,7 +168,7 @@ func schemaTypesProjectGraphql() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "schema/types/project.graphql", size: 564, mode: os.FileMode(420), modTime: time.Unix(1584779669, 0)}
+	info := bindataFileInfo{name: "schema/types/project.graphql", size: 564, mode: os.FileMode(420), modTime: time.Unix(1584847814, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -188,7 +188,7 @@ func schemaTypesUserGraphql() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "schema/types/user.graphql", size: 137, mode: os.FileMode(420), modTime: time.Unix(1584779174, 0)}
+	info := bindataFileInfo{name: "schema/types/user.graphql", size: 137, mode: os.FileMode(420), modTime: time.Unix(1584847814, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
