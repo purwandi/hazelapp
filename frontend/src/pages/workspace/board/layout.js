@@ -9,7 +9,7 @@ const Item = props => {
       <div className="border border-gray-300 rounded hover:shadow">
         <div className="p-3 border-b-2 border-gray-300">
           <h2 className="font-semibold text-sm mb-2 tracking-wide">{props.name}</h2>
-          <div className="text-gray-700 text-xs h-8 overflow-y-hidden">{props.description}</div>
+          <div className="text-gray-700 text-xs h-10 overflow-y-hidden">{props.description}</div>
         </div>
         <div className="p-3 text-xs flex justify-between">
           <div className="">

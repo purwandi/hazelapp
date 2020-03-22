@@ -1,6 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+
+import AppLoading from '../../../components/loading';
 import Layout from './layout';
 
 const GET_PROJECTS = gql`
@@ -26,7 +28,7 @@ const Workspace = props => {
   });
 
   if (loading) {
-    return <h1>Loading</h1>;
+    return <AppLoading />;
   }
 
   return <Layout login={data.viewer.username} projects={data.viewer.projects.nodes} {...props} />;
