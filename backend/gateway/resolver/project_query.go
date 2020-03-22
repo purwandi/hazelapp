@@ -15,6 +15,12 @@ type GetProjectsInput struct {
 	Before *string
 }
 
+// GetProjectInput is to get project input
+type GetProjectInput struct {
+	Name  string
+	Owner string
+}
+
 // Projects is get projects
 func (r *Resolver) Projects(ctx context.Context, owner int, args struct{ Input *GetProjectsInput }) (*ProjectConnectionResolver, error) {
 	var after *int
@@ -63,5 +69,24 @@ func (r *Resolver) Projects(ctx context.Context, owner int, args struct{ Input *
 		Count:     result.Total,
 		Projects:  projects,
 		Paginator: result.PageInfo,
+	}, nil
+}
+
+// Project is resolve ...
+func (r *Resolver) Project(ctx context.Context, args GetProjectInput) (*ProjectResolver, error) {
+	owner, err := r.UserService.FindUserByUsername(args.Owner)
+	if err != nil {
+		return nil, err
+	}
+
+	input := types.FindProjectInput{OwnerID: owner.ID, Name: args.Name}
+	project, err := r.ProjectService.FindProject(input)
+	if err != nil {
+		return nil, err
+	}
+
+	return &ProjectResolver{
+		Field:    project,
+		Resolver: r,
 	}, nil
 }

@@ -6,6 +6,7 @@ schema {
 type Query {
   viewer(): User!
   user(login: String!): User!
+  project(name: String! owner: String!): Project
 }
 
 type Mutation {
