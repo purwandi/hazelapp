@@ -1,6 +1,11 @@
 version: "3"
 
 services:
+  redis:
+    restart: unless-stopped
+    container_name: redis
+    image: redis:5-alpine
+
   rabbitmq-management:
     image: rabbitmq:3-management-alpine
     hostname: rabbitmq
