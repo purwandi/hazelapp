@@ -3,35 +3,61 @@ package domain
 import (
 	"time"
 
-	uuid "github.com/satori/go.uuid"
+	"github.com/purwandi/hazelapp/issue/types"
 )
 
+const (
+	// MilestoneOpen when milestone is open
+	MilestoneOpen = "OPEN"
+	// MilestoneClose when milestone is closed
+	MilestoneClose = "CLOSED"
+)
+
+// Milestone is to wrap milestone model
 type Milestone struct {
-	ID          uuid.UUID
-	ProjectID   uuid.UUID
+	ID          int
+	ProjectID   int
 	Name        string
 	Description string
+	Status      string
 	StartedAt   time.Time
 	EndedAt     time.Time
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
 
-func CreateMilestone(name, description string, projectID uuid.UUID) (*Milestone, error) {
-	if name == "" {
+// CreateMilestone to create milestone
+func CreateMilestone(args types.CreateMilestoneInput) (*Milestone, error) {
+	if args.Name == "" {
 		return nil, MilestoneError{MilestoneErrorNameIsBlank}
 	}
 
-	uid, err := uuid.NewV4()
-	if err != nil {
-		return nil, err
+	milestone := Milestone{
+		ProjectID: args.ProjectID,
+		Name:      args.Name,
+		Status:    MilestoneOpen,
+		CreatedAt: time.Now(),
 	}
 
-	return &Milestone{
-		ID:          uid,
-		ProjectID:   projectID,
-		Name:        name,
-		Description: description,
-		CreatedAt:   time.Now(),
-	}, nil
+	if args.Description != nil {
+		milestone.Description = *args.Description
+	}
+
+	return &milestone, nil
+}
+
+// Open to open milestone
+func (m *Milestone) Open() error {
+	m.Status = MilestoneOpen
+	m.UpdatedAt = time.Now()
+
+	return nil
+}
+
+// Close to close milestone
+func (m *Milestone) Close() error {
+	m.Status = MilestoneClose
+	m.UpdatedAt = time.Now()
+
+	return nil
 }

@@ -22,7 +22,7 @@ type IssueRepository interface {
 }
 
 type MilestoneQuery interface {
-	GetMilestones(args *types.GetMilestoneQueryInput) <-chan QueryResult
+	GetMilestones(args *types.GetMilestonesInput) <-chan QueryResult
 }
 
 type MilestoneRepository interface {

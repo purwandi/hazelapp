@@ -15,16 +15,16 @@ func NewMilestoneQueryInMemory(s *storage.MilestoneStorage) repository.Milestone
 	return &MilestoneQueryInMemory{Storage: s}
 }
 
-func (query *MilestoneQueryInMemory) GetMilestones(args *types.GetMilestoneQueryInput) <-chan repository.QueryResult {
+func (query *MilestoneQueryInMemory) GetMilestones(args *types.GetMilestonesInput) <-chan repository.QueryResult {
 	result := make(chan repository.QueryResult)
 
 	go func() {
 		milestones := []domain.Milestone{}
-		// for _, milestone := range query.Storage.MilestoneMap {
-		// 	if milestone.ProjectID == args.ProjectID {
-		// 		milestones = append(milestones, milestone)
-		// 	}
-		// }
+		for _, milestone := range query.Storage.MilestoneMap {
+			if milestone.ProjectID == args.ProjectID {
+				milestones = append(milestones, milestone)
+			}
+		}
 
 		result <- repository.QueryResult{Result: milestones}
 		close(result)
