@@ -13,8 +13,8 @@ type QueryResult struct {
 
 // IssueQuery is a contract issue query
 type IssueQuery interface {
-	FindAllIssuesByProjectID(projectID int) <-chan QueryResult
-	FindIssueByNumber(id, projectID int) <-chan QueryResult
+	GetIssues(types.GetIssuesInput) <-chan QueryResult
+	GetIssueByNumber(types.GetIssueInput) <-chan QueryResult
 	GetLastIssueNumberFromGivenProject(projectID int) <-chan QueryResult
 }
 
@@ -25,7 +25,8 @@ type IssueRepository interface {
 
 // MilestoneQuery is a contract milestone query
 type MilestoneQuery interface {
-	GetMilestones(args types.GetMilestonesInput) <-chan QueryResult
+	FindMilestoneByID(int) <-chan QueryResult
+	GetMilestones(types.GetMilestonesInput) <-chan QueryResult
 }
 
 // MilestoneRepository is a contract milestone repository

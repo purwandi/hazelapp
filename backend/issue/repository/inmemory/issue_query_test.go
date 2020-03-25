@@ -5,18 +5,17 @@ import (
 
 	"github.com/purwandi/hazelapp/issue/domain"
 	"github.com/purwandi/hazelapp/issue/storage"
-	uuid "github.com/satori/go.uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestCanGetLastIssueNumberFromGivenProject(t *testing.T) {
 	// Given
-	issueID, _ := uuid.NewV4()
-	projectID, _ := uuid.NewV4()
+	issueID := 1
+	projectID := 2
 
 	store := storage.NewIssueStorage()
 	store.IssueMap = []domain.Issue{
-		domain.Issue{ID: issueID, Title: "Hello", Body: "This is a body", IID: 1, ProjectID: projectID},
+		domain.Issue{ID: issueID, Title: "Hello", Body: "This is a body", Number: 1, ProjectID: projectID},
 	}
 
 	query := NewIssueQueryInMemory(store)

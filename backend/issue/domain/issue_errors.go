@@ -1,11 +1,14 @@
 package domain
 
+// IssueError is wrap issue error message
 type IssueError struct {
 	Code int
 }
 
 const (
+	// IssueErrorTitleIsBlank when title is blank
 	IssueErrorTitleIsBlank = iota
+	// IssueErrorUndefinedIssueState when issue state is not correct
 	IssueErrorUndefinedIssueState
 )
 

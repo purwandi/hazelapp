@@ -47,3 +47,15 @@ func (s *MilestoneService) GetMilestones(args types.GetMilestonesInput) ([]domai
 	// Response
 	return result.Result.([]domain.Milestone), nil
 }
+
+// FindMilestoneByID is to get milestones
+func (s *MilestoneService) FindMilestoneByID(id int) (domain.Milestone, error) {
+	// Process
+	result := <-s.query.FindMilestoneByID(id)
+	if result.Error != nil {
+		return domain.Milestone{}, result.Error
+	}
+
+	// Response
+	return result.Result.(domain.Milestone), nil
+}

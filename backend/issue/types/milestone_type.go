@@ -15,12 +15,3 @@ type CreateMilestoneInput struct {
 	StartedAt   *time.Time
 	EndedAt     *time.Time
 }
-
-// CreateIssueInput is to create new issue input
-type CreateIssueInput struct {
-	ProjectID   int
-	MilestoneID int
-	AuthorID    int
-	Title       string
-	Body        string
-}

@@ -35,6 +35,7 @@ func NewResolver() *Resolver {
 		UserStorage := StorageUser.NewUserStorage()
 		ProjectStorage := StorageProject.NewProjectStorage()
 		MilestoneStorage := StorageIssue.NewMilestoneStorage()
+		IssueStorage := StorageIssue.NewIssueStorage()
 
 		UserStorage.Demo()
 		ProjectStorage.Demo()
@@ -52,6 +53,11 @@ func NewResolver() *Resolver {
 		resolver.MilestoneService = ServiceIssue.NewMilestoneService(
 			RepositoryInMemoryIssue.NewMilestoneQueryInMemory(MilestoneStorage),
 			RepositoryInMemoryIssue.NewMilestoneRepositoryInMemory(MilestoneStorage),
+		)
+
+		resolver.IssueService = ServiceIssue.NewIssueService(
+			RepositoryInMemoryIssue.NewIssueQueryInMemory(IssueStorage),
+			RepositoryInMemoryIssue.NewIssueRepositoryInMemory(IssueStorage),
 		)
 
 	}

@@ -1,9 +1,11 @@
 type Issue {
   id: ID!
-  iid: Int!
+  project: Project!
+  milestone: Milestone
+  author: User!
+  number: Int!
   title: String!
-  body: String!
-  createdAt: String!
+  body: String
 }
 
 enum IssueState {
@@ -16,6 +18,8 @@ enum IssueState {
 input CreateIssueInput {
   # The project ID of the repository.
   projectId: ID!
+  # The milestone ID of the repository.
+  milestoneId: String
   # The title for the issue.
   title: String!
   # The body for the issue description.

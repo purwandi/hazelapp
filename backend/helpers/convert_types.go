@@ -27,7 +27,7 @@ func IntValue(v *int) int {
 	return *v
 }
 
-// Int32ValueToInt is to convert int32 pointer into in pointer
+// Int32ValueToInt is to convert int32 pointer into int pointer
 func Int32ValueToInt(v *int32) *int {
 	if v == nil {
 		return nil
@@ -35,6 +35,21 @@ func Int32ValueToInt(v *int32) *int {
 
 	val := int(*v)
 	return &val
+}
+
+// IntValueToInt32 is to convert int pointer into int pointer
+func IntValueToInt32(v *int) *int32 {
+	if v == nil {
+		return nil
+	}
+
+	val := int32(*v)
+	return &val
+}
+
+// IntToInt32 to convert int into in32
+func IntToInt32(v int) int32 {
+	return int32(v)
 }
 
 // Int32 is to convert int32 into int32 pointer

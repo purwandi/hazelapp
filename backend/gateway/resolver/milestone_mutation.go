@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/purwandi/hazelapp/helpers"
-
 	"github.com/purwandi/hazelapp/issue/types"
 )
 

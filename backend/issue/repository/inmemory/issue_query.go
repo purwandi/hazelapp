@@ -4,24 +4,27 @@ import (
 	"github.com/purwandi/hazelapp/issue/domain"
 	"github.com/purwandi/hazelapp/issue/repository"
 	"github.com/purwandi/hazelapp/issue/storage"
-	uuid "github.com/satori/go.uuid"
+	"github.com/purwandi/hazelapp/issue/types"
 )
 
+// IssueQueryInMemory is to IssueQuery implementation in memory
 type IssueQueryInMemory struct {
 	Storage *storage.IssueStorage
 }
 
+// NewIssueQueryInMemory is to create IssueQueryInMemory instance
 func NewIssueQueryInMemory(s *storage.IssueStorage) repository.IssueQuery {
 	return &IssueQueryInMemory{Storage: s}
 }
 
-func (query *IssueQueryInMemory) GetLastIssueNumberFromGivenProject(id uuid.UUID) <-chan repository.QueryResult {
+// GetLastIssueNumberFromGivenProject is to get last issue number from given project
+func (query *IssueQueryInMemory) GetLastIssueNumberFromGivenProject(id int) <-chan repository.QueryResult {
 	result := make(chan repository.QueryResult)
 
 	go func() {
 		issue := domain.Issue{}
 		for _, item := range query.Storage.IssueMap {
-			if item.ProjectID == id && item.IID > issue.IID {
+			if item.ProjectID == id && item.Number > issue.Number {
 				issue = item
 			}
 		}
@@ -30,20 +33,21 @@ func (query *IssueQueryInMemory) GetLastIssueNumberFromGivenProject(id uuid.UUID
 			result <- repository.QueryResult{Result: 0}
 		}
 
-		result <- repository.QueryResult{Result: issue.IID}
+		result <- repository.QueryResult{Result: issue.Number}
 		close(result)
 	}()
 
 	return result
 }
 
-func (query *IssueQueryInMemory) FindAllIssuesByProjectID(id uuid.UUID) <-chan repository.QueryResult {
+// GetIssues to get all issues
+func (query *IssueQueryInMemory) GetIssues(args types.GetIssuesInput) <-chan repository.QueryResult {
 	result := make(chan repository.QueryResult)
 
 	go func() {
 		issues := []domain.Issue{}
 		for _, issue := range query.Storage.IssueMap {
-			if issue.ProjectID == id {
+			if issue.ProjectID == args.ProjectID {
 				issues = append(issues, issue)
 			}
 		}
@@ -55,13 +59,14 @@ func (query *IssueQueryInMemory) FindAllIssuesByProjectID(id uuid.UUID) <-chan r
 	return result
 }
 
-func (query *IssueQueryInMemory) FindIssueByIID(id int, projectID uuid.UUID) <-chan repository.QueryResult {
+// GetIssueByNumber to get an issue
+func (query *IssueQueryInMemory) GetIssueByNumber(args types.GetIssueInput) <-chan repository.QueryResult {
 	result := make(chan repository.QueryResult)
 
 	go func() {
 		issue := domain.Issue{}
 		for _, item := range query.Storage.IssueMap {
-			if item.IID == id && item.ProjectID == projectID {
+			if item.Number == args.Number && item.ProjectID == args.ProjectID {
 				issue = item
 			}
 		}

@@ -12,6 +12,5 @@ type Query {
 type Mutation {
   ProjectCreate(input: CreateProjectInput!): Project
   MilestoneCreate(input: CreateMilestoneInput!): Milestone
-  # IssueCreate(input: CreateIssueInput!): Issue
-  # IssueUpdate(input: UpdateIssueInput!): Issue
+  IssueCreate(input: CreateIssueInput!): Issue
 }
