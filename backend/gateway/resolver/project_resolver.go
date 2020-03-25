@@ -6,6 +6,7 @@ import (
 
 	"github.com/graph-gophers/graphql-go"
 	"github.com/purwandi/hazelapp/helpers"
+	"github.com/purwandi/hazelapp/issue/types"
 	"github.com/purwandi/hazelapp/project/domain"
 	"github.com/purwandi/hazelapp/project/repository"
 )
@@ -34,6 +35,27 @@ func (p *ProjectResolver) Name() string {
 // Description get project description
 func (p *ProjectResolver) Description() *string {
 	return helpers.String(p.Field.Description)
+}
+
+// Milestones is to get milestones from given project
+func (p *ProjectResolver) Milestones() (*[]*MilestoneResolver, error) {
+	input := types.GetMilestonesInput{
+		ProjectID: p.Field.ID,
+	}
+	result, err := p.Resolver.MilestoneService.GetMilestones(input)
+	if err != nil {
+		return nil, err
+	}
+
+	milestones := make([]*MilestoneResolver, len(result))
+	for i, milestone := range result {
+		milestones[i] = &MilestoneResolver{
+			Field:    milestone,
+			Resolver: p.Resolver,
+		}
+	}
+
+	return &milestones, nil
 }
 
 // CreatedAt is to get project creation date
