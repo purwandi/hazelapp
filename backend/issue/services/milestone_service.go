@@ -37,12 +37,7 @@ func (s *MilestoneService) CreateMilestone(args types.CreateMilestoneInput) (dom
 }
 
 // GetMilestones is to get milestones
-func (s *MilestoneService) GetMilestones(args *types.GetMilestonesInput) ([]domain.Milestone, error) {
-	// Validate
-	if args == nil {
-		return []domain.Milestone{}, ServiceError{ServiceErrorArgsIsBlank}
-	}
-
+func (s *MilestoneService) GetMilestones(args types.GetMilestonesInput) ([]domain.Milestone, error) {
 	// Process
 	result := <-s.query.GetMilestones(args)
 	if result.Error != nil {

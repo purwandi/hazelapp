@@ -27,6 +27,21 @@ func NewProjectService(query repository.ProjectQuery, repo repository.ProjectRep
 	}
 }
 
+// FindProjectByID is to find project by id
+func (s *ProjectService) FindProjectByID(id int) (domain.Project, error) {
+	result := <-s.query.FindProjectByID(id)
+	if result.Error != nil {
+		return domain.Project{}, result.Error
+	}
+
+	project := result.Result.(domain.Project)
+	if project.ID == 0 {
+		return domain.Project{}, ServiceError{ServiceErrorResourceNotFound}
+	}
+
+	return result.Result.(domain.Project), nil
+}
+
 // FindProject is to find project
 func (s *ProjectService) FindProject(args types.FindProjectInput) (domain.Project, error) {
 	result := <-s.query.FindProject(args)

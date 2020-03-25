@@ -15,7 +15,7 @@ func NewMilestoneQueryInMemory(s *storage.MilestoneStorage) repository.Milestone
 	return &MilestoneQueryInMemory{Storage: s}
 }
 
-func (query *MilestoneQueryInMemory) GetMilestones(args *types.GetMilestonesInput) <-chan repository.QueryResult {
+func (query *MilestoneQueryInMemory) GetMilestones(args types.GetMilestonesInput) <-chan repository.QueryResult {
 	result := make(chan repository.QueryResult)
 
 	go func() {

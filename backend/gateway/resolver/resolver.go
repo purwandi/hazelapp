@@ -3,7 +3,9 @@ package resolver
 import (
 	"os"
 
+	RepositoryInMemoryIssue "github.com/purwandi/hazelapp/issue/repository/inmemory"
 	ServiceIssue "github.com/purwandi/hazelapp/issue/services"
+	StorageIssue "github.com/purwandi/hazelapp/issue/storage"
 	RepositoryInMemoryProject "github.com/purwandi/hazelapp/project/repository/inmemory"
 	ServiceProject "github.com/purwandi/hazelapp/project/services"
 	StorageProject "github.com/purwandi/hazelapp/project/storage"
@@ -32,6 +34,7 @@ func NewResolver() *Resolver {
 	case "inmemory":
 		UserStorage := StorageUser.NewUserStorage()
 		ProjectStorage := StorageProject.NewProjectStorage()
+		MilestoneStorage := StorageIssue.NewMilestoneStorage()
 
 		UserStorage.Demo()
 		ProjectStorage.Demo()
@@ -44,6 +47,11 @@ func NewResolver() *Resolver {
 		resolver.UserService = ServiceUser.NewUserService(
 			RepositoryInMemoryUser.NewUserQueryInMemory(UserStorage),
 			RepositoryInMemoryUser.NewUserRepositoryInMemory(UserStorage),
+		)
+
+		resolver.MilestoneService = ServiceIssue.NewMilestoneService(
+			RepositoryInMemoryIssue.NewMilestoneQueryInMemory(MilestoneStorage),
+			RepositoryInMemoryIssue.NewMilestoneRepositoryInMemory(MilestoneStorage),
 		)
 
 	}

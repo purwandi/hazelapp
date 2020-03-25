@@ -43,6 +43,14 @@ func CreateMilestone(args types.CreateMilestoneInput) (*Milestone, error) {
 		milestone.Description = *args.Description
 	}
 
+	if args.StartedAt != nil {
+		milestone.StartedAt = *args.StartedAt
+	}
+
+	if args.EndedAt != nil {
+		milestone.EndedAt = *args.EndedAt
+	}
+
 	return &milestone, nil
 }
 

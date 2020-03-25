@@ -151,6 +151,25 @@ func (query *ProjectQueryInMemory) GetProjects(args types.GetProjectsInput) <-ch
 	return result
 }
 
+// FindProjectByID is to find a project
+func (query *ProjectQueryInMemory) FindProjectByID(id int) <-chan repository.QueryResult {
+	result := make(chan repository.QueryResult)
+
+	go func() {
+		project := domain.Project{}
+		for _, p := range query.Storage.ProjectMap {
+			if p.ID == id {
+				project = p
+			}
+		}
+
+		result <- repository.QueryResult{Result: project}
+		close(result)
+	}()
+
+	return result
+}
+
 // FindProject is to find a project
 func (query *ProjectQueryInMemory) FindProject(args types.FindProjectInput) <-chan repository.QueryResult {
 	result := make(chan repository.QueryResult)

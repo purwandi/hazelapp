@@ -29,5 +29,6 @@ type ProjectRepository interface {
 // ProjectQuery is an interface for project query
 type ProjectQuery interface {
 	GetProjects(types.GetProjectsInput) <-chan QueryResult
+	FindProjectByID(int) <-chan QueryResult
 	FindProject(types.FindProjectInput) <-chan QueryResult
 }

@@ -1,14 +1,18 @@
 type Milestone {
   id: ID!
+  project: Project!
   name: String!
   description: String
-  projectId: String!
+  startDate: String
+  endDate: String
 }
 
 input CreateMilestoneInput {
   name: String!
   description: String
   projectId: String!
+  startDate: String
+  endDate: String
 }
 
 input GetMilestoneQueryInput {
