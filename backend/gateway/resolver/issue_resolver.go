@@ -4,6 +4,7 @@ import (
 	"github.com/graph-gophers/graphql-go"
 	"github.com/purwandi/hazelapp/helpers"
 	"github.com/purwandi/hazelapp/issue/domain"
+	"github.com/purwandi/hazelapp/project/repository"
 )
 
 // IssueResolver resolve ...
@@ -72,4 +73,41 @@ func (i *IssueResolver) Title() string {
 // Body resolve ...
 func (i *IssueResolver) Body() *string {
 	return helpers.String(i.Field.Body)
+}
+
+// IssueConnectionResolver is to resolve
+type IssueConnectionResolver struct {
+	Issues    []*IssueResolver
+	Paginator repository.PageInfo
+	Count     int
+}
+
+// Egdes resolve ...
+func (i *IssueConnectionResolver) Egdes() *[]*IssueEdgeResolver {
+	issues := make([]*IssueEdgeResolver, len(i.Issues))
+
+	for i, issue := range i.Issues {
+		issues[i] = &IssueEdgeResolver{
+			cursor: issue.ID(),
+			Field:  issue,
+		}
+	}
+
+	return &issues
+}
+
+// IssueEdgeResolver is resolve ...
+type IssueEdgeResolver struct {
+	cursor graphql.ID
+	Field  *IssueResolver
+}
+
+// Cursor resolve ...
+func (i *IssueEdgeResolver) Cursor() graphql.ID {
+	return graphql.ID(i.Field.ID())
+}
+
+// Node to resolve
+func (i *IssueEdgeResolver) Node() *IssueResolver {
+	return i.Field
 }
