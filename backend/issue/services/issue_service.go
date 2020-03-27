@@ -6,6 +6,13 @@ import (
 	"github.com/purwandi/hazelapp/issue/types"
 )
 
+// IssueCollectionResult is to wrap issue collection result
+type IssueCollectionResult struct {
+	Issues   []domain.Issue
+	Total    int
+	PageInfo repository.PageInfo
+}
+
 // IssueService is to expose issue service
 type IssueService struct {
 	query      repository.IssueQuery
@@ -28,8 +35,24 @@ func (s *IssueService) GetLastIssueNumberFromGivenProject(id int) (int, error) {
 		return 0, result.Error
 	}
 
-	// Response
+	// Return
 	return result.Result.(int), nil
+}
+
+// GetIssues is to get issues
+func (s *IssueService) GetIssues(args types.GetIssuesInput) (IssueCollectionResult, error) {
+	// Process
+	result := <-s.query.GetIssues(args)
+	if result.Error != nil {
+		return IssueCollectionResult{}, result.Error
+	}
+
+	// Return
+	return IssueCollectionResult{
+		Issues:   result.Result.([]domain.Issue),
+		Total:    result.Total,
+		PageInfo: result.PageInfo,
+	}, nil
 }
 
 // CreateIssue is to create an issue
@@ -46,6 +69,6 @@ func (s *IssueService) CreateIssue(args types.CreateIssueInput) (domain.Issue, e
 		return domain.Issue{}, err
 	}
 
-	// Response
+	// Return
 	return *issue, nil
 }

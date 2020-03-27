@@ -5,6 +5,7 @@ type Project {
   description: String
   createdAt: String!
   milestones: [Milestone]
+  issues(input: GetIssuesInput!): IssueConnection
 }
 
 type ProjectConnection {

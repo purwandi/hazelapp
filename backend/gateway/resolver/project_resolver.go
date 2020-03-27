@@ -58,6 +58,11 @@ func (p *ProjectResolver) Milestones() (*[]*MilestoneResolver, error) {
 	return &milestones, nil
 }
 
+// Issues resolve ...
+func (p *ProjectResolver) Issues(ctx context.Context, args struct{ Input GetIssuesInput }) (*IssueConnectionResolver, error) {
+	return p.Resolver.Issues(ctx, p.Field.ID, args)
+}
+
 // CreatedAt is to get project creation date
 func (p *ProjectResolver) CreatedAt() string {
 	return p.Field.CreatedAt.Format(time.RFC3339)

@@ -4,7 +4,7 @@ import (
 	"github.com/graph-gophers/graphql-go"
 	"github.com/purwandi/hazelapp/helpers"
 	"github.com/purwandi/hazelapp/issue/domain"
-	"github.com/purwandi/hazelapp/project/repository"
+	"github.com/purwandi/hazelapp/issue/repository"
 )
 
 // IssueResolver resolve ...
@@ -24,6 +24,7 @@ func (i *IssueResolver) Project() (*ProjectResolver, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &ProjectResolver{
 		Field:    project,
 		Resolver: i.Resolver,
@@ -75,6 +76,11 @@ func (i *IssueResolver) Body() *string {
 	return helpers.String(i.Field.Body)
 }
 
+// State is to resolve
+func (i *IssueResolver) State() string {
+	return i.Field.State
+}
+
 // IssueConnectionResolver is to resolve
 type IssueConnectionResolver struct {
 	Issues    []*IssueResolver
@@ -82,8 +88,8 @@ type IssueConnectionResolver struct {
 	Count     int
 }
 
-// Egdes resolve ...
-func (i *IssueConnectionResolver) Egdes() *[]*IssueEdgeResolver {
+// Edges resolve ...
+func (i *IssueConnectionResolver) Edges() *[]*IssueEdgeResolver {
 	issues := make([]*IssueEdgeResolver, len(i.Issues))
 
 	for i, issue := range i.Issues {
@@ -94,6 +100,24 @@ func (i *IssueConnectionResolver) Egdes() *[]*IssueEdgeResolver {
 	}
 
 	return &issues
+}
+
+// Nodes to get available nodes
+func (i *IssueConnectionResolver) Nodes() *[]*IssueResolver {
+	return &i.Issues
+}
+
+// TotalCount to get project total
+func (i *IssueConnectionResolver) TotalCount() int32 {
+	return int32(i.Count)
+}
+
+// PageInfo is resolves ...
+func (i *IssueConnectionResolver) PageInfo() PageInfoResolver {
+	return PageInfoResolver{
+		startCursor: helpers.String(helpers.EncryptID("issue", i.Paginator.StartCursor)),
+		endCursor:   helpers.String(helpers.EncryptID("issue", i.Paginator.EndCursor)),
+	}
 }
 
 // IssueEdgeResolver is resolve ...

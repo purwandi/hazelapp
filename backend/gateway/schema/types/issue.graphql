@@ -6,6 +6,19 @@ type Issue {
   number: Int!
   title: String!
   body: String
+  state: IssueState!
+}
+
+type IssueConnection {
+  edges: [IssueEdge]
+  nodes: [Issue]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type IssueEdge {
+  cursor: ID!
+  node: Issue
 }
 
 enum IssueState {
@@ -32,5 +45,13 @@ input UpdateIssueInput {
   title: String
   # The body for the issue description.
   body: String
+
   state: IssueState
+}
+
+input GetIssuesInput {
+  first: Int
+  last: Int
+  after: String
+  before: String
 }
