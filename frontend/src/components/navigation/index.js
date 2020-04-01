@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useRouteMatch, useParams, useLocation } from 'react-router-dom';
-import Octicon, {
+import { useRouteMatch, useLocation } from 'react-router-dom';
+import {
   Home as HomeIcon,
   Tools as ToolsIcon,
   SignOut as SignOutIcon,
@@ -16,19 +16,7 @@ import Octicon, {
 } from '@primer/octicons-react';
 import { UseAppContextValue } from '../../context';
 
-const NavItem = props => {
-  const isActive = props.active ? 'bg-gray-300' : '';
-  return (
-    <Link
-      to={props.to}
-      className={`rounded px-3 text-gray-700 py-1 ${isActive} hover:bg-gray-200 block flex justify-between items-center rounded cursor-pointer`}
-      {...props}
-    >
-      <Octicon icon={props.icon} className="w-4" />
-      <span className="ml-2 flex-1">{props.label}</span>
-    </Link>
-  );
-};
+import NavItem from './item';
 
 const NavProfile = () => {
   const [state] = UseAppContextValue();
@@ -60,34 +48,40 @@ const NavProfile = () => {
 };
 
 const Navigation = () => {
-  const [state, dispatch] = UseAppContextValue();
+  const [, dispatch] = UseAppContextValue();
   const { pathname } = useLocation();
+  const match = useRouteMatch('/:owner/:name');
+
+  console.log(match);
+
   return (
     <>
       <NavProfile />
       <div className="overflow-auto flex-1 p-3 ">
         <nav className="tracking-wide text-sm">
-          <NavItem icon={HomeIcon} to="/" label="Dashboard" active={true} />
+          <NavItem icon={HomeIcon} to="/" label="Dashboard" />
           <NavItem icon={CommentDiscussionIcon} to="/" label="Threads" />
-          <NavItem icon={ToolsIcon} label="Settings" />
+          <NavItem icon={ToolsIcon} to="/" label="Settings" />
         </nav>
-        <nav className="mt-5 tracking-wide text-sm">
-          <h2 className="text-gray-700 font-semibold mb-2 px-3 truncate" title="facebook">
-            facebook
-          </h2>
-          <NavItem icon={CommentIcon} to={`${pathname}/`} label="Discussion" />
-          <NavItem icon={NoteIcon} to={`${pathname}/backlog`} label="Backlog" />
-          <NavItem icon={IssueReopenedIcon} to="/" label="Active Sprint" />
-          <NavItem icon={CodeIcon} label="Code" />
-          <NavItem icon={GitPullRequestIcon} label="Pull Request" />
-          <NavItem icon={OrganizationIcon} to="/" label="Member" />
-          <NavItem icon={GearIcon} to="/" label="Project Settings" />
-        </nav>
+        {match && (
+          <nav className="mt-5 tracking-wide text-sm">
+            <h2 className="text-gray-700 font-semibold mb-2 px-3 truncate" title={match.params.name}>
+              {match.params.name}
+            </h2>
+            <NavItem icon={CommentIcon} to={`${match.url}`} label="Discussion" />
+            <NavItem icon={NoteIcon} to={`${match.url}/backlog`} label="Backlog" />
+            <NavItem icon={IssueReopenedIcon} to={`${match.url}/active-sprints`} label="Active Sprint" />
+            <NavItem icon={CodeIcon} to={`${match.url}/code`} label="Code" />
+            <NavItem icon={GitPullRequestIcon} to={`${match.url}/pulls`} label="Pull Request" />
+            <NavItem icon={OrganizationIcon} to={`${match.url}/members`} label="Member" />
+            <NavItem icon={GearIcon} to={`${match.url}/settings`} label="Project Settings" />
+          </nav>
+        )}
       </div>
       <div className="p-3">
         <nav className="mb-2 tracking-wide text-sm">
-          <NavItem icon={QuestionIcon} label="Help" />
-          <NavItem icon={SignOutIcon} label="Sign Out" onClick={e => dispatch({ type: 'LOGOUT' })} />
+          <NavItem icon={QuestionIcon} to="/" label="Help" />
+          <NavItem icon={SignOutIcon} to="/" label="Sign Out" onClick={e => dispatch({ type: 'LOGOUT' })} />
         </nav>
       </div>
     </>
