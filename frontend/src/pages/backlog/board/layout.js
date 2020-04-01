@@ -1,8 +1,8 @@
-import React from 'react'
-import Header from '../../../components/header'
-import Octicon, { Plus as PlusIcon, PrimitiveDot as PrimitiveDotIcon } from '@primer/octicons-react'
+import React from 'react';
+import Header from '../../../components/header';
+import Octicon, { PrimitiveDot as PrimitiveDotIcon } from '@primer/octicons-react';
 
-const Item = (props) => (
+const Item = props => (
   <div className="flex justify-between items-center border-b border-gray-200 py-1 text-sm">
     <div className="flex-1 truncate">
       <span className="text-gray-800 font-lighter tracking-wide">{props.body}</span>
@@ -41,9 +41,7 @@ const Backlog = props => (
         <div className="text-gray-500"> 3 issues</div>
       </div>
     </div>
-    <div className="text-gray-600 text-xs">
-      Implement the new weather alert system and make over 50,000+ customers
-    </div>
+    <div className="text-gray-600 text-xs">Implement the new weather alert system and make over 50,000+ customers</div>
     <div className="mt-2 mb-1">
       <Item id="XDM-1" body="Responsive Variations for `sticky-top`" />
       <Item id="XDM-30365" body="Create mixin for anchor tag (link)." />
@@ -58,7 +56,7 @@ const Backlog = props => (
       <Item id="XDM-20219" body="Support multiple targets for tabs " />
     </div>
   </div>
-)
+);
 
 const BacklogBoardLayout = () => {
   return (
@@ -69,7 +67,7 @@ const BacklogBoardLayout = () => {
         <Backlog title="Backlog" create />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BacklogBoardLayout
+export default BacklogBoardLayout;

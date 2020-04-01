@@ -2,7 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
-import AppLoading from '../../../components/loading';
+import ComponentLoading from '../../../components/loading';
 import Layout from './layout';
 
 const GET_PROJECTS = gql`
@@ -21,17 +21,19 @@ const GET_PROJECTS = gql`
 `;
 
 const Workspace = props => {
-  const { loading, error, data } = useQuery(GET_PROJECTS, {
+  const { loading, data } = useQuery(GET_PROJECTS, {
     variables: {
       first: 20,
     },
   });
 
   if (loading) {
-    return <AppLoading />;
+    return <ComponentLoading />;
   }
 
-  return <Layout login={data.viewer.username} projects={data.viewer.projects.nodes} {...props} />;
+  if (data && data.viewer) {
+    return <Layout login={data.viewer.username} projects={data.viewer.projects.nodes} {...props} />;
+  }
 };
 
 export default Workspace;

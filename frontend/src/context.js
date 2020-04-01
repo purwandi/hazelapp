@@ -15,11 +15,7 @@ const dataStore = {
 
 const AppContext = React.createContext();
 const useAppReducer = (reducer, defaultState) => {
-  const hookVars = useReducer(
-    reducer,
-    defaultState,
-    (initState) => store.get(LOCAL_STORAGE_KEY) || initState,
-  );
+  const hookVars = useReducer(reducer, defaultState, initState => store.get(LOCAL_STORAGE_KEY) || initState);
 
   useEffect(() => {
     store.set(LOCAL_STORAGE_KEY, hookVars[0]);
@@ -55,13 +51,9 @@ const Reducer = (state, action) => {
   }
 };
 
-export const AppProvider = (props) => {
+export const AppProvider = props => {
   const AppStateContext = dataStore;
-  return (
-    <AppContext.Provider value={useAppReducer(Reducer, AppStateContext)}>
-      {props.children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={useAppReducer(Reducer, AppStateContext)}>{props.children}</AppContext.Provider>;
 };
 
 AppProvider.propTypes = {

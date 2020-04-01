@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 import { useSetState } from 'react-use';
 import { useMutation } from '@apollo/react-hooks';
 
+import Loading from '../../../components/loading';
+
 import Layout from './layout';
 
 const CREATE_PROJECT = gql`
@@ -26,7 +28,7 @@ const WorkspaceCreate = props => {
     description: '',
   });
 
-  const [createProject, { loading, data }] = useMutation(CREATE_PROJECT);
+  const [createProject, { loading }] = useMutation(CREATE_PROJECT);
   const onCreateProject = e => {
     createProject({
       variables: {
@@ -37,6 +39,10 @@ const WorkspaceCreate = props => {
     });
     e.preventDefault();
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return <Layout onCreateProject={onCreateProject} state={state} setState={setState} {...props} />;
 };

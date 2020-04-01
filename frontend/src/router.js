@@ -1,18 +1,18 @@
-import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect, withRouter, useRouteMatch } from 'react-router-dom'
-import { ApolloProvider } from 'react-apollo'
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { ApolloProvider } from 'react-apollo';
 
 // Context Component
-import { AppProvider, UseAppContextValue } from './context'
-import { CreateApolloClient } from './graphql'
+import { AppProvider, UseAppContextValue } from './context';
+import { CreateApolloClient } from './graphql';
 
 // Component Import
-import Navigation from './components/navigation'
+import Navigation from './components/navigation';
 
 // Component Router Import
-import AppAuth from './pages/auth/router'
-import { WorkspaceIndex, WorkspaceCreate } from './pages/workspace'
-import { BacklogIndex } from './pages/backlog'
+import AppAuth from './pages/auth/router';
+import { WorkspaceIndex, WorkspaceCreate } from './pages/workspace';
+import { BacklogIndex } from './pages/backlog';
 
 const App = () => (
   <AppProvider>
@@ -20,7 +20,7 @@ const App = () => (
       <AppRouter />
     </Router>
   </AppProvider>
-)
+);
 
 const AppRouter = withRouter(props => {
   const { match, history, location } = props;
@@ -52,8 +52,8 @@ const AppMainContainer = props => {
       </div>
       <div className="flex-1 min-w-0 bg-white">
         <Switch>
-          <Route path="/:login/:project" component={BacklogIndex} />
-          <Route path="/:login/:project/backlog" component={BacklogIndex} />
+          <Route path="/:owner/:name/backlog" component={BacklogIndex} />
+          <Route path="/:owner/:name/" component={BacklogIndex} />
           <Route path="/create" component={WorkspaceCreate} exact />
           <Route path="/" component={WorkspaceIndex} exact />
         </Switch>

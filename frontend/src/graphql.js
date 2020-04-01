@@ -36,6 +36,7 @@ export const CreateApolloClient = (context, dispatch, router) => {
           Location: ${location},
           Path: ${path}
         `);
+        return false;
       });
     }
 
