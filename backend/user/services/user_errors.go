@@ -1,10 +1,12 @@
 package services
 
+// UserServiceError to wrap user service error
 type UserServiceError struct {
 	Code int
 }
 
 const (
+	// UserServiceErrorResourceNotFound when resources is not found
 	UserServiceErrorResourceNotFound = iota
 )
 
