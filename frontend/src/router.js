@@ -12,7 +12,7 @@ import Navigation from './components/navigation';
 // Component Router Import
 import AppAuth from './pages/auth/router';
 import { WorkspaceIndex, WorkspaceCreate } from './pages/workspace';
-import { BacklogIndex } from './pages/backlog';
+import { IssueIndex } from './pages/issue';
 
 const App = () => (
   <AppProvider>
@@ -52,8 +52,8 @@ const AppMainContainer = props => {
       </div>
       <div className="flex-1 min-w-0 bg-white">
         <Switch>
-          <Route path="/:owner/:name/backlog" component={BacklogIndex} />
-          <Route path="/:owner/:name/" component={BacklogIndex} />
+          <Route path="/:owner/:name/backlog" component={IssueIndex} />
+          <Route path="/:owner/:name/" component={IssueIndex} />
           <Route path="/create" component={WorkspaceCreate} exact />
           <Route path="/" component={WorkspaceIndex} exact />
         </Switch>

@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import { useRouteMatch, useLocation } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import {
   Home as HomeIcon,
   Tools as ToolsIcon,
   SignOut as SignOutIcon,
   Note as NoteIcon,
-  Comment as CommentIcon,
   CommentDiscussion as CommentDiscussionIcon,
   Question as QuestionIcon,
   Organization as OrganizationIcon,
   Gear as GearIcon,
   IssueReopened as IssueReopenedIcon,
-  Code as CodeIcon,
-  GitPullRequest as GitPullRequestIcon,
 } from '@primer/octicons-react';
 import { UseAppContextValue } from '../../context';
 
@@ -49,10 +46,7 @@ const NavProfile = () => {
 
 const Navigation = () => {
   const [, dispatch] = UseAppContextValue();
-  const { pathname } = useLocation();
   const match = useRouteMatch('/:owner/:name');
-
-  console.log(match);
 
   return (
     <>
@@ -68,11 +62,8 @@ const Navigation = () => {
             <h2 className="text-gray-700 font-semibold mb-2 px-3 truncate" title={match.params.name}>
               {match.params.name}
             </h2>
-            <NavItem icon={CommentIcon} to={`${match.url}`} label="Discussion" />
             <NavItem icon={NoteIcon} to={`${match.url}/backlog`} label="Backlog" />
             <NavItem icon={IssueReopenedIcon} to={`${match.url}/active-sprints`} label="Active Sprint" />
-            <NavItem icon={CodeIcon} to={`${match.url}/code`} label="Code" />
-            <NavItem icon={GitPullRequestIcon} to={`${match.url}/pulls`} label="Pull Request" />
             <NavItem icon={OrganizationIcon} to={`${match.url}/members`} label="Member" />
             <NavItem icon={GearIcon} to={`${match.url}/settings`} label="Project Settings" />
           </nav>

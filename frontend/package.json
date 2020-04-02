@@ -34,7 +34,7 @@
   "scripts": {
     "start": "npm-run-all -p start:css start:js",
     "build": "npm-run-all build:css build:js",
-    "start:css": "postcss src/styles/tailwind.css -o src/styles/index.css -w --env production",
+    "start:css": "postcss src/styles/tailwind.css -o src/styles/index.css -w",
     "build:css": "postcss src/styles/tailwind.css -o src/styles/index.css --env production",
     "start:js": "react-scripts start",
     "build:js": "react-scripts build",
