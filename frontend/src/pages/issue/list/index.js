@@ -1,32 +1,10 @@
 import React from 'react';
-import gql from 'graphql-tag';
+import { useRouteMatch } from 'react-router';
 import { useQuery } from '@apollo/react-hooks';
 
 import AppComponentLoading from '../../../components/loading';
 import Layout from './layout';
-import { useRouteMatch } from 'react-router';
-
-const GET_ISSUES = gql`
-  query($owner: String!, $name: String!, $first: Int) {
-    project(owner: $owner, name: $name) {
-      milestones {
-        id
-        name
-      }
-      issues(input: { first: $first }) {
-        nodes {
-          id
-          number
-          title
-          body
-          milestone {
-            id
-          }
-        }
-      }
-    }
-  }
-`;
+import GET_ISSUES from './query';
 
 const BacklogBoard = () => {
   const milestones = [{ id: null, name: 'backlog', issues: [] }];

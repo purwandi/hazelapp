@@ -39,6 +39,7 @@ func NewResolver() *Resolver {
 
 		UserStorage.Demo()
 		ProjectStorage.Demo()
+		MilestoneStorage.Demo()
 		IssueStorage.Demo()
 
 		resolver.ProjectService = ServiceProject.NewProjectService(

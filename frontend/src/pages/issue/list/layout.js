@@ -1,6 +1,7 @@
 import React from 'react';
+import { useSetState } from 'react-use';
 import Header from '../../../components/header';
-import Octicon, { PrimitiveDot as PrimitiveDotIcon } from '@primer/octicons-react';
+import Octicon, { PrimitiveDot as PrimitiveDotIcon, Plus } from '@primer/octicons-react';
 
 const Item = props => (
   <div className="flex justify-between items-center border-b border-gray-200 py-1 text-sm">
@@ -33,17 +34,41 @@ const Item = props => (
   </div>
 );
 
+const FormIssue = () => {
+  const [state, setState] = useSetState({
+    open: false,
+  });
+
+  return (
+    <div>
+      <div className="flex justify-between">
+        <div></div>
+        <input type="text" className="flex-1 p-1 px-2 text-sm" placeholder="What needs to be done?" />
+      </div>
+      <button className="text-sm text-blue-600">
+        <Octicon icon={Plus} /> Create Issue
+      </button>
+    </div>
+  );
+};
+
 const Backlog = props => (
-  <div className="mb-8">
+  <div className="mb-8 p-4 bg-gray-100 rounded">
     <div className="flex items-center text-sm">
       <h2 className="font-semibold">{props.title}</h2>
       <div className="ml-3">
         <div className="text-gray-500">{(props.issues && props.issues.length) || 0} issues</div>
       </div>
     </div>
-    <div className="text-gray-600 text-xs">Implement the new weather alert system and make over 50,000+ customers</div>
+    {/* <div className="text-gray-600 text-xs">Implement the new weather alert system and make over 50,000+ customers</div> */}
     <div className="mt-2 mb-1">
-      {props.issues && props.issues.map(issue => <Item key={issue.id} title={issue.title} number={issue.number} />)}
+      <div className="border border-dashed border-gray-400">
+        {props.issues.length === 0 && (
+          <div className="text-center p-4 text-sm text-gray-600">Your backlog is empty</div>
+        )}
+        {props.issues && props.issues.map(issue => <Item key={issue.id} title={issue.title} number={issue.number} />)}
+      </div>
+      <FormIssue />
     </div>
   </div>
 );
