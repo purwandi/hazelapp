@@ -1,16 +1,16 @@
-import React from 'react';
-import { useSetState } from 'react-use';
+import React, { useRef } from 'react';
+import { useSetState, useClickAway } from 'react-use';
 import Header from '../../../components/header';
-import Octicon, { PrimitiveDot as PrimitiveDotIcon, Plus } from '@primer/octicons-react';
+import Octicon, { PlusSmall as PlusIcon, Saved as SavedIcon } from '@primer/octicons-react';
 
 const Item = props => (
-  <div className="flex justify-between items-center border-b border-gray-200 py-1 text-sm">
+  <div className="flex justify-between items-center border-b border-gray-200 py-1 px-2 text-sm">
     <div className="flex-1 truncate">
       <span className="text-gray-800 font-lighter tracking-wide">{props.title}</span>
     </div>
     <div className="">
       <div className="flex justify-end items-center">
-        <div className="pl-2 text-gray-600">{`#${props.number}`}</div>
+        <div className="pl-2 text-blue-700">{`#${props.number}`}</div>
         {/* <div className="flex justify-between">
           <div className="px-2 ml-1 inline-block border border-gray-200 text-red-700 rounded-lg">
             <Octicon icon={PrimitiveDotIcon} />
@@ -35,25 +35,41 @@ const Item = props => (
 );
 
 const FormIssue = () => {
+  const ref = useRef(null);
   const [state, setState] = useSetState({
-    open: false,
+    form: 'hidden',
+    button: 'block',
+  });
+
+  useClickAway(ref, () => {
+    setState({ form: 'hidden', button: 'block' });
   });
 
   return (
-    <div>
-      <div className="flex justify-between">
-        <div></div>
-        <input type="text" className="flex-1 p-1 px-2 text-sm" placeholder="What needs to be done?" />
+    <div className="mt-2">
+      <div ref={ref} className={`relative ${state.form}`}>
+        <div className="w-8 absolute py-1 px-2">
+          <Octicon icon={SavedIcon} />
+        </div>
+        <input
+          type="text"
+          className="flex-1 pr-1 pl-8 py-1 text-sm w-full border border-gray-200 rounded"
+          placeholder="What needs to be done?"
+        />
       </div>
-      <button className="text-sm text-blue-600">
-        <Octicon icon={Plus} /> Create Issue
+      <button
+        className={`text-sm text-gray-600 px-2 py-1 w-full border border-transparent text-left hover:bg-gray-100 hover:text-gray-800 rounded ${state.button}`}
+        onClick={e => setState({ form: 'block', button: 'hidden' })}
+      >
+        <Octicon icon={PlusIcon} />
+        <span className="pl-2">Create Issue</span>
       </button>
     </div>
   );
 };
 
 const Backlog = props => (
-  <div className="mb-8 p-4 bg-gray-100 rounded">
+  <div className="mb-8">
     <div className="flex items-center text-sm">
       <h2 className="font-semibold">{props.title}</h2>
       <div className="ml-3">
@@ -66,7 +82,10 @@ const Backlog = props => (
         {props.issues.length === 0 && (
           <div className="text-center p-4 text-sm text-gray-600">Your backlog is empty</div>
         )}
-        {props.issues && props.issues.map(issue => <Item key={issue.id} title={issue.title} number={issue.number} />)}
+        {props.issues &&
+          props.issues.map(issue => (
+            <Item key={issue.id} title={issue.title} number={issue.number} />
+          ))}
       </div>
       <FormIssue />
     </div>

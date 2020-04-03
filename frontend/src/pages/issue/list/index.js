@@ -7,7 +7,7 @@ import Layout from './layout';
 import GET_ISSUES from './query';
 
 const BacklogBoard = () => {
-  const milestones = [{ id: null, name: 'backlog', issues: [] }];
+  const milestones = [{ id: null, name: 'Backlog', issues: [] }];
   const { params } = useRouteMatch();
   const { loading, data } = useQuery(GET_ISSUES, {
     variables: {
@@ -21,30 +21,20 @@ const BacklogBoard = () => {
     return <AppComponentLoading />;
   }
 
-  // Add backlog milestone
-  if (data && data.project) {
-    data.project.milestones.push({ id: 'backlog', name: 'Backlog', issues: [] });
-  }
+  data.project.milestones.map(item => milestones.push({ ...item, issues: [] }));
 
   // Map issue into each milestone
   if (data && data.project && data.project.issues.nodes) {
     data.project.issues.nodes.map(issue => {
-      let mIndex;
+      let mIndex = 0;
       if (issue.milestone !== null) {
-        if (data.project && milestones.find(item => issue.milestone.id !== item.id)) {
-          data.milestones.push({ ...issue.milestone, issues: [] });
-        }
-
-        mIndex = data.project.milestones.findIndex(item => item.id === issue.milestone.id);
-      } else {
-        mIndex = data.project.milestones.findIndex(item => item.id === 'backlog');
+        mIndex = milestones.findIndex(item => item.id === issue.milestone.id);
       }
-
-      data.project.milestones[mIndex].issues.push(issue);
+      milestones[mIndex].issues.push(issue);
     });
   }
 
-  return <Layout milestones={data.project.milestones} />;
+  return <Layout milestones={milestones.reverse()} />;
 };
 
 export default BacklogBoard;
