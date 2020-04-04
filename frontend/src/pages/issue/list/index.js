@@ -4,10 +4,10 @@ import { useQuery } from '@apollo/react-hooks';
 
 import AppComponentLoading from '../../../components/loading';
 import Layout from './layout';
-import GET_ISSUES from './query';
+import { GET_ISSUES } from '../query';
 
 const BacklogBoard = () => {
-  const milestones = [{ id: null, name: 'Backlog', issues: [] }];
+  const milestones = [];
   const { params } = useRouteMatch();
   const { loading, data } = useQuery(GET_ISSUES, {
     variables: {
@@ -22,6 +22,7 @@ const BacklogBoard = () => {
   }
 
   data.project.milestones.map(item => milestones.push({ ...item, issues: [] }));
+  milestones.push({ id: null, name: 'Backlog', issues: [] });
 
   // Map issue into each milestone
   if (data && data.project && data.project.issues.nodes) {
@@ -34,7 +35,14 @@ const BacklogBoard = () => {
     });
   }
 
-  return <Layout milestones={milestones.reverse()} />;
+  const onIssueCreated = () => { };
+
+  return (
+    <Layout
+      project={{ id: data.project.id }}
+      milestones={milestones}
+      onIssueCreated={onIssueCreated} />
+  );
 };
 
 export default BacklogBoard;

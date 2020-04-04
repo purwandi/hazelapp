@@ -52,8 +52,17 @@ const AppMainContainer = props => {
       </div>
       <div className="flex-1 min-w-0 bg-white">
         <Switch>
-          <Route path="/:owner/:name/backlog" component={IssueIndex} />
-          <Route path="/:owner/:name/" component={IssueIndex} />
+          <Route
+            path="/:owner/:name/"
+            render={({ match }) => {
+              return (
+                <Switch>
+                  <Route path={`${match.path}/backlog`} component={IssueIndex} />
+                  <Route path={`${match.path}`} component={IssueIndex} />
+                </Switch>
+              );
+            }}
+          />
           <Route path="/create" component={WorkspaceCreate} exact />
           <Route path="/" component={WorkspaceIndex} exact />
         </Switch>

@@ -5,6 +5,10 @@ import { onError } from 'apollo-link-error';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
+const Resolvers = {
+  Mutation: {},
+};
+
 export const CreateApolloClient = (context, dispatch, router) => {
   const authLink = () => {
     return setContext((_, { headers }) => {
