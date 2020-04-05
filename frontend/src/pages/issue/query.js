@@ -38,3 +38,12 @@ export const CREATE_ISSUE = gql`
     }
   }
 `;
+
+export const CREATE_MILESTONE = gql`
+  mutation($name: String!, $projectId: String!) {
+    MilestoneCreate(input: {name: $name, projectId: $projectId}) {
+      id
+      name
+    }
+  }
+`;
