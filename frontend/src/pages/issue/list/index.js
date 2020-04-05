@@ -21,27 +21,23 @@ const BacklogBoard = () => {
     return <AppComponentLoading />;
   }
 
+  // Add backlog milestone if the issues doesn't hva milestone
   data.project.milestones.map(item => milestones.push({ ...item, issues: [] }));
   milestones.push({ id: null, name: 'Backlog', issues: [] });
 
   // Map issue into each milestone
   if (data && data.project && data.project.issues.nodes) {
     data.project.issues.nodes.map(issue => {
-      let mIndex = 0;
-      if (issue.milestone !== null) {
-        mIndex = milestones.findIndex(item => item.id === issue.milestone.id);
-      }
+      const milestoneID = issue.milestone !== null ? issue.milestone.id : null
+      const mIndex = milestones.findIndex(item => item.id === milestoneID);
       milestones[mIndex].issues.push(issue);
     });
   }
 
-  const onIssueCreated = () => { };
-
   return (
     <Layout
       project={{ id: data.project.id }}
-      milestones={milestones}
-      onIssueCreated={onIssueCreated} />
+      milestones={milestones} />
   );
 };
 

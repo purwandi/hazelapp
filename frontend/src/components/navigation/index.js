@@ -11,10 +11,10 @@ import {
   Gear as GearIcon,
   IssueReopened as IssueReopenedIcon,
 } from '@primer/octicons-react';
+import { useClickAway } from 'react-use';
 import { UseAppContextValue } from '../../context';
 
 import NavItem from './item';
-import { useClickAway } from 'react-use';
 
 const NavProfile = () => {
   const ref = useRef(null);
@@ -28,9 +28,10 @@ const NavProfile = () => {
 
   return (
     <div className="relative p-3" ref={ref}>
-      <div
+      <a
+        href="/"
         className="flex justify-between items-start cursor-pointer"
-        onClick={e => setMenu(!menu)}
+        onClick={e => { setMenu(!menu); e.preventDefault() }}
       >
         <div className="w-10 h-10">
           <img
@@ -43,13 +44,13 @@ const NavProfile = () => {
           <span className="text-sm">{state.user.fullname}</span>
           <span className="text-xs text-gray-700">{`@${state.user.username}`}</span>
         </div>
-      </div>
+      </a>
       <div className={`absolute left-0 bg-white w-64 z-10 shadow rounded px-4 ${active}`}>
         <div className="border border-gray-200 ">
-          <nav className="text-sm"></nav>
+          <nav className="text-sm" />
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
@@ -92,7 +93,7 @@ const Navigation = () => {
             icon={SignOutIcon}
             to="/"
             label="Sign Out"
-            onClick={e => dispatch({ type: 'LOGOUT' })}
+            onClick={() => dispatch({ type: 'LOGOUT' })}
           />
         </nav>
       </div>

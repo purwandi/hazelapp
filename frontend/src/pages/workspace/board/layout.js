@@ -33,7 +33,7 @@ const Item = props => {
 const Actions = () => {
   return (
     <Link to="/create" className="bg-indigo-500 text-white px-2 py-1 rounded text-sm">
-      <Octicon icon={PlusIcon}></Octicon>
+      <Octicon icon={PlusIcon} />
     </Link>
   );
 };

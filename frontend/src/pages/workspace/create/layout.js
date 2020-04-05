@@ -9,7 +9,7 @@ const Layout = props => {
           <h1 className="text-xl font-semibold">Create a project</h1>
           <p className="text-gray-700">Manage stories, task and workflows for a scrum team</p>
           <div className="mb-2 mt-4">
-            <label for="name" className="block pb-1">
+            <label htmlFor="name" className="block pb-1">
               Project name
             </label>
             <input
@@ -25,7 +25,7 @@ const Layout = props => {
             </small>
           </div>
           <div className="mb-2">
-            <label for="key" className="block pb-1">
+            <label htmlFor="key" className="block pb-1">
               Project key
             </label>
             <input
@@ -38,7 +38,7 @@ const Layout = props => {
             <small className="text-gray-600 text-sm">Eg. AT (for a project named Atlantis)</small>
           </div>
           <div className="mb-2">
-            <label className="block pb-1" for="description">
+            <label className="block pb-1" htmlFor="description">
               Description
               <span className="text-gray-600 text-sm"> (optional)</span>
             </label>
@@ -49,7 +49,7 @@ const Layout = props => {
               placeholder="Enter a project description"
               rows="3"
               onChange={e => props.setState({ description: e.target.value })}
-            ></textarea>
+             />
           </div>
 
           <div className="mt-6">

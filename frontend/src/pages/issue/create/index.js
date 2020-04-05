@@ -2,6 +2,7 @@ import React from 'react';
 import { object } from 'prop-types';
 import { useSetState } from 'react-use';
 import { useMutation } from '@apollo/react-hooks';
+import { useRouteMatch } from 'react-router';
 import { GET_ISSUES, CREATE_ISSUE } from '../query';
 import Layout from './layout';
 
@@ -11,6 +12,7 @@ const IssueCreate = ({ milestone, project }) => {
     title: '',
   });
 
+  const match = useRouteMatch()
   const [issueCreate] = useMutation(CREATE_ISSUE);
   const onFormSubmit = e => {
     e.preventDefault();
@@ -33,7 +35,7 @@ const IssueCreate = ({ milestone, project }) => {
           },
           id: "",
           number: "",
-          body: "asdsa",
+          body: "",
           project,
           title: state.title,
         }
@@ -43,8 +45,8 @@ const IssueCreate = ({ milestone, project }) => {
         const store = proxy.readQuery({
           query: GET_ISSUES,
           variables: {
-            owner: 'foobar',
-            name: 'marketing-website',
+            owner: match.params.owner,
+            name: match.params.name,
             first: 20,
           }
         })
@@ -56,18 +58,14 @@ const IssueCreate = ({ milestone, project }) => {
         proxy.writeQuery({
           query: GET_ISSUES,
           variables: {
-            owner: 'foobar',
-            name: 'marketing-website',
+            owner: match.params.owner,
+            name: match.params.name,
             first: 20,
           },
           data: store
         })
       }
     });
-
-
-    // eslint-disable-next-line no-console
-    // console.log(data)
 
     // reset form state
     setState({

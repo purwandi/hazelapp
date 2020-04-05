@@ -40,10 +40,10 @@ const NavProfile = () => {
           <span className="text-xs text-gray-700">@purwandi</span>
         </div>
       </div>
-      <div className={`absolute left-0 bg-white w-64 z-10 shadow rounded px-4 hidden`}>
+      <div className="absolute left-0 bg-white w-64 z-10 shadow rounded px-4 hidden">
         <div className="border border-gray-200 ">
           <nav className="text-sm">
-            <a href=""></a>
+            <a href="" />
           </nav>
         </div>
       </div>
@@ -58,7 +58,7 @@ const Navigation = () => {
       <NavProfile />
       <div className="overflow-auto">
         <nav className="mt-6 tracking-wide text-sm">
-          <NavItem icon={HomeIcon} to="/" label="Dashboard" active={true} />
+          <NavItem icon={HomeIcon} to="/" label="Dashboard" active />
           <NavItem icon={ToolsIcon} label="Settings" />
           <NavItem
             icon={SignOutIcon}

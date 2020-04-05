@@ -22,8 +22,7 @@ const App = () => (
   </AppProvider>
 );
 
-const AppRouter = withRouter(props => {
-  const { match, history, location } = props;
+const AppRouter = withRouter(({ match, history, location }) => {
   const [AppStateContext, dispatch] = UseAppContextValue();
   const ApolloClient = CreateApolloClient(AppStateContext, dispatch, { match, history, location });
   return (
