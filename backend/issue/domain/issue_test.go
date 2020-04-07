@@ -23,6 +23,7 @@ func TestCanCreateIssue(t *testing.T) {
 		ProjectID: 1,
 		AuthorID:  1,
 		Title:     "New project with torth",
+		IssueType: "story",
 	}
 
 	service := IssueServiceMock{}
@@ -34,10 +35,21 @@ func TestCanCreateIssue(t *testing.T) {
 	// Then
 	assert.NoError(t, error)
 	assert.Equal(t, 1, issue.ProjectID)
-	assert.Equal(t, 0, issue.MilestoneID)
+	assert.Nil(t, issue.MilestoneID)
 	assert.Equal(t, 3, issue.Number)
 	assert.Equal(t, input.Title, issue.Title)
 	assert.Equal(t, IssueOpen, issue.State)
+}
+
+func TestCanAssignMilestone(t *testing.T) {
+	// Given
+	issue := Issue{
+		ProjectID: 1,
+		AuthorID:  1,
+		Title:     "Hello world",
+	}
+
+	//
 }
 
 func TestCanChangeIssueTitle(t *testing.T) {

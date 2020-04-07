@@ -3,10 +3,11 @@ package types
 // CreateIssueInput is to create new issue input
 type CreateIssueInput struct {
 	ProjectID   int
-	MilestoneID int
+	MilestoneID *int
 	AuthorID    int
 	Title       string
-	Body        string
+	Body        *string
+	IssueType   string
 }
 
 // IssueOrder ...

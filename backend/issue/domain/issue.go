@@ -13,15 +13,52 @@ const (
 	IssueClosed = "CLOSED"
 )
 
+const (
+	// StoryType is story
+	StoryType = "story"
+	// BugType is bug
+	BugType = "bug"
+	// TaskType is task
+	TaskType = "task"
+	// EpicType is epic
+	EpicType = "epic"
+)
+
+// IssueType is issue type
+type IssueType struct {
+	Code  string
+	Label string
+}
+
+// issueTypes is to get available issue types
+func issueTypes() []IssueType {
+	return []IssueType{
+		IssueType{Code: StoryType, Label: "Story"},
+		IssueType{Code: BugType, Label: "Bug"},
+		IssueType{Code: TaskType, Label: "Task"},
+		IssueType{Code: EpicType, Label: "Epic"},
+	}
+}
+
+func validateIssueType(issueType string) error {
+	for _, item := range issueTypes() {
+		if item.Code == issueType {
+			return nil
+		}
+	}
+	return IssueError{IssueErrorUndefinedIssueType}
+}
+
 // Issue is to wrap issue domain
 type Issue struct {
 	ID          int
 	ProjectID   int
 	AuthorID    int
 	Number      int
-	MilestoneID int
+	MilestoneID *int
+	IssueType   string
 	Title       string
-	Body        string
+	Body        *string
 	State       string
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
@@ -38,6 +75,10 @@ func CreateIssue(service IssueService, args types.CreateIssueInput) (*Issue, err
 		return nil, IssueError{IssueErrorTitleIsBlank}
 	}
 
+	if err := validateIssueType(args.IssueType); err != nil {
+		return nil, err
+	}
+
 	iid, err := service.GetLastIssueNumberFromGivenProject(args.ProjectID)
 	if err != nil {
 		return nil, err
@@ -51,6 +92,7 @@ func CreateIssue(service IssueService, args types.CreateIssueInput) (*Issue, err
 		Title:       args.Title,
 		Body:        args.Body,
 		State:       IssueOpen,
+		IssueType:   args.IssueType,
 		CreatedAt:   time.Now(),
 	}, nil
 }
@@ -68,7 +110,7 @@ func (i *Issue) ChangeTitle(title string) error {
 
 // ChangeBody is to change issue body
 func (i *Issue) ChangeBody(body string) error {
-	i.Body = body
+	i.Body = &body
 	i.UpdatedAt = time.Now()
 	return nil
 }
