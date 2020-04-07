@@ -2,7 +2,7 @@ import React from 'react';
 import { object } from 'prop-types';
 
 const Item = ({ issue }) => (
-  <div className="flex justify-between items-center border-gray-200 border-b last:border-b-0 py-1 px-2 text-sm">
+  <div className="flex justify-between items-center border-gray-200 border-b py-1 px-2 text-sm">
     <div className="flex-1 truncate">
       <span className="text-gray-800 font-lighter tracking-wide">{issue.title}</span>
     </div>

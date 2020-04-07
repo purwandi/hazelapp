@@ -10,6 +10,7 @@ import Layout from './layout';
 const IssueCreate = ({ milestone, project }) => {
   const [state, setState] = useSetState({
     title: '',
+    type: 'story'
   });
 
   const match = useRouteMatch()
@@ -70,11 +71,16 @@ const IssueCreate = ({ milestone, project }) => {
     // reset form state
     setState({
       title: '',
+      type: 'story'
     });
 
   };
 
-  return <Layout state={state} setState={setState} onFormSubmit={onFormSubmit} />;
+  const onChangeType = (value) => {
+    setState({ type: value })
+  }
+
+  return <Layout state={state} setState={setState} onFormSubmit={onFormSubmit} onChangeType={onChangeType} />;
 };
 
 IssueCreate.propTypes = {

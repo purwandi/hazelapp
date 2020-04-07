@@ -21,7 +21,7 @@ const MilestoneCreate = ({ project }) => {
 
   const onCreateMilestone = (e) => {
     e.preventDefault()
-    const name = `Milestone ${store.project.milestones.length + 1}`
+    const name = `Milestone v.${store.project.milestones.length + 1}`
     createMilestone({
       variables: {
         name,
