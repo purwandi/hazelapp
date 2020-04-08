@@ -1,0 +1,25 @@
+name: Frontend Pipeline
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 13.12.0
+        id: node
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+      - name: Linting
+        run: |
+          cd frontend
+          npm install
+          npm run lint
