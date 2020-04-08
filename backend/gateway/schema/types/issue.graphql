@@ -7,6 +7,7 @@ type Issue {
   title: String!
   body: String
   state: IssueState!
+  issueType: String!
 }
 
 type IssueConnection {
@@ -37,6 +38,8 @@ input CreateIssueInput {
   title: String!
   # The body for the issue description.
   body: String
+
+  issueType: String!
 }
 
 input UpdateIssueInput {

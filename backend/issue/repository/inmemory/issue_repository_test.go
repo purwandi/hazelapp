@@ -10,10 +10,11 @@ import (
 
 func TestCanSaveIssue(t *testing.T) {
 	// Given
+	body := "body"
 	issue := domain.Issue{
 		ProjectID: 1,
 		Title:     "Helloo",
-		Body:      "body",
+		Body:      &body,
 	}
 	store := storage.NewIssueStorage()
 	repo := NewIssueRepositoryInMemory(store)
@@ -29,10 +30,11 @@ func TestCanSaveIssue(t *testing.T) {
 
 func TestCanIncreaseIssueID(t *testing.T) {
 	// Given
+	body := "body"
 	issue := domain.Issue{
 		ProjectID: 1,
 		Title:     "Helloo",
-		Body:      "body",
+		Body:      &body,
 	}
 	store := storage.NewIssueStorage()
 	store.IssueMap = []domain.Issue{

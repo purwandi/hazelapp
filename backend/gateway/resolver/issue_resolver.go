@@ -33,11 +33,11 @@ func (i *IssueResolver) Project() (*ProjectResolver, error) {
 
 // Milestone resolve ...
 func (i *IssueResolver) Milestone() (*MilestoneResolver, error) {
-	if i.Field.MilestoneID == 0 {
+	if i.Field.MilestoneID == nil {
 		return nil, nil
 	}
 
-	milestone, err := i.Resolver.MilestoneService.FindMilestoneByID(i.Field.MilestoneID)
+	milestone, err := i.Resolver.MilestoneService.FindMilestoneByID(*i.Field.MilestoneID)
 	if err != nil {
 		return nil, err
 	}
@@ -73,12 +73,17 @@ func (i *IssueResolver) Title() string {
 
 // Body resolve ...
 func (i *IssueResolver) Body() *string {
-	return helpers.String(i.Field.Body)
+	return i.Field.Body
 }
 
-// State is to resolve
+// State is to resolve ...
 func (i *IssueResolver) State() string {
 	return i.Field.State
+}
+
+// IssueType is resolve ...
+func (i *IssueResolver) IssueType() string {
+	return i.Field.IssueType
 }
 
 // IssueConnectionResolver is to resolve

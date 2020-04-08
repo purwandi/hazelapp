@@ -49,7 +49,11 @@ func TestCanAssignMilestone(t *testing.T) {
 		Title:     "Hello world",
 	}
 
-	//
+	// When
+	issue.ChangeMilestone(2)
+
+	// Then
+	assert.Equal(t, 2, *issue.MilestoneID)
 }
 
 func TestCanChangeIssueTitle(t *testing.T) {

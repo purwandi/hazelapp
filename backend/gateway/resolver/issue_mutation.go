@@ -14,6 +14,7 @@ type IssueCreateInput struct {
 	MilestoneID *string
 	Title       string
 	Body        *string
+	IssueType   string
 }
 
 // IssueCreate to create an isue
@@ -34,6 +35,7 @@ func (r *Resolver) IssueCreate(ctx context.Context, args struct{ Input IssueCrea
 		ProjectID: project.ID,
 		AuthorID:  viewer.ID,
 		Title:     args.Input.Title,
+		IssueType: args.Input.IssueType,
 	}
 
 	// Set milestone if milestone is set
@@ -43,16 +45,15 @@ func (r *Resolver) IssueCreate(ctx context.Context, args struct{ Input IssueCrea
 			return nil, err
 		}
 
-		milestone, err := r.MilestoneService.FindMilestoneByID(milestoneID)
-		if err != nil {
+		if _, err = r.MilestoneService.FindMilestoneByID(milestoneID); err != nil {
 			return nil, err
 		}
 
-		input.MilestoneID = milestone.ID
+		input.MilestoneID = &milestoneID
 	}
 
 	if args.Input.Body != nil {
-		input.Body = *args.Input.Body
+		input.Body = args.Input.Body
 	}
 
 	issue, err := r.IssueService.CreateIssue(input)

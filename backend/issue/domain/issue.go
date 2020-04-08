@@ -84,17 +84,22 @@ func CreateIssue(service IssueService, args types.CreateIssueInput) (*Issue, err
 		return nil, err
 	}
 
-	return &Issue{
-		ProjectID:   args.ProjectID,
-		AuthorID:    args.AuthorID,
-		MilestoneID: args.MilestoneID,
-		Number:      iid + 1,
-		Title:       args.Title,
-		Body:        args.Body,
-		State:       IssueOpen,
-		IssueType:   args.IssueType,
-		CreatedAt:   time.Now(),
-	}, nil
+	issue := &Issue{
+		ProjectID: args.ProjectID,
+		AuthorID:  args.AuthorID,
+		Number:    iid + 1,
+		Title:     args.Title,
+		Body:      args.Body,
+		State:     IssueOpen,
+		IssueType: args.IssueType,
+		CreatedAt: time.Now(),
+	}
+
+	if args.MilestoneID != nil {
+		issue.MilestoneID = args.MilestoneID
+	}
+
+	return issue, nil
 }
 
 // ChangeTitle to change issue title
@@ -125,6 +130,13 @@ func (i *Issue) ReOpen() error {
 // Closed is to close issue
 func (i *Issue) Closed() error {
 	i.State = IssueClosed
+	i.UpdatedAt = time.Now()
+	return nil
+}
+
+// ChangeMilestone is to change milestone
+func (i *Issue) ChangeMilestone(milestone int) error {
+	i.MilestoneID = &milestone
 	i.UpdatedAt = time.Now()
 	return nil
 }
