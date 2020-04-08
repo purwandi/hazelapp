@@ -1,10 +1,12 @@
 import React from 'react';
 import { object } from 'prop-types';
+import { IssueType } from '../static';
 
 const Item = ({ issue }) => (
-  <div className="flex justify-between items-center border-gray-200 border-b py-1 px-2 text-sm">
-    <div className="flex-1 truncate">
-      <span className="text-gray-800 font-lighter tracking-wide">{issue.title}</span>
+  <div className="flex justify-between items-center border-gray-300 border-b first:border-t py-2 px-2 text-sm">
+    <div className="flex-1 truncate flex items-center">
+      <IssueType value={issue.issueType} />
+      <span className="text-gray-800 font-lighter tracking-wide ml-2">{issue.title}</span>
     </div>
     <div className="">
       <div className="flex justify-end items-center">

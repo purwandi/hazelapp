@@ -17,7 +17,9 @@ const Backlog = ({ project, milestone }) => (
         {milestone.id === null && <MilestoneCreate project={project} />}
       </div>
     </div>
-    <div className="text-gray-600 text-xs">{milestone.description && milestone.description}</div>
+    <div className="text-gray-600 text-xs">
+      {milestone.description && milestone.description} &nbsp;
+    </div>
     <div className="mt-2 mb-1">
       {milestone.issues.length === 0 && (
         <div className="border border-dashed border-gray-400">
@@ -25,7 +27,7 @@ const Backlog = ({ project, milestone }) => (
         </div>
       )}
       {milestone.issues.length > 0 && (
-        <div className="border border-gray-400">
+        <div className="">
           {milestone.issues.map((issue) => (
             <Item issue={issue} key={issue.id} />
           ))}
