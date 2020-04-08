@@ -31,9 +31,7 @@ const Workspace = (props) => {
     return <ComponentLoading />;
   }
 
-  if (data && data.viewer) {
-    return <Layout login={data.viewer.username} projects={data.viewer.projects.nodes} {...props} />;
-  }
+  return <Layout login={data.viewer.username} projects={data.viewer.projects.nodes} {...props} />;
 };
 
 export default Workspace;

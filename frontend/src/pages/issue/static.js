@@ -11,9 +11,7 @@ export const IssueTypes = [
   { icon: <TaskIcon key="task" />, label: 'Task', value: 'task' },
 ];
 
-export const IssueType = ({ value }) =>
-  IssueTypes.map((type) => {
-    if (type.value === value) {
-      return type.icon;
-    }
-  });
+export const IssueType = ({ value }) => {
+  const [elem] = IssueTypes.filter((type) => type.value === value);
+  return elem.icon;
+};

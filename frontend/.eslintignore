@@ -1,3 +1,4 @@
 src/serviceWorker.js
 tailwind.js
 postcss.config.js
+build/*

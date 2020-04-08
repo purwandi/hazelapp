@@ -33,20 +33,16 @@ const Dropdown = ({ value, onChange }) => {
           text-sm text-gray-700 shadow w-48 ${state.show}
         `}
       >
-        {IssueTypes.map((type) => {
-          if (type.value !== value) {
-            return (
-              <div
-                className="flex items-center px-2 py-1 hover:bg-gray-200 cursor-pointer"
-                onClick={() => onChange(type.value)}
-                key={type.value}
-              >
-                {type.icon}
-                <span className="ml-2">{type.label}</span>
-              </div>
-            );
-          }
-        })}
+        {IssueTypes.filter((type) => type.value !== value).map((type) => (
+          <div
+            className="flex items-center px-2 py-1 hover:bg-gray-200 cursor-pointer"
+            onClick={() => onChange(type.value)}
+            key={type.value}
+          >
+            {type.icon}
+            <span className="ml-2">{type.label}</span>
+          </div>
+        ))}
       </div>
     </div>
   );

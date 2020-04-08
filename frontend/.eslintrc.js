@@ -25,7 +25,6 @@ module.exports = {
   },
   plugins: ['react', 'prettier'],
   rules: {
-    'array-callback-return': 'off',
     'arrow-body-style': [2, 'as-needed'],
     'consistent-return': 'off',
     'import/imports-first': 0,

@@ -27,6 +27,7 @@ const BacklogBoard = () => {
 
   // Map issue into each milestone
   if (data && data.project && data.project.issues.nodes) {
+    // eslint-disable-next-line array-callback-return
     data.project.issues.nodes.map((issue) => {
       const milestoneID = issue.milestone !== null ? issue.milestone.id : null;
       const mIndex = milestones.findIndex((item) => item.id === milestoneID);
