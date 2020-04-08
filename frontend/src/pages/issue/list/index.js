@@ -22,23 +22,19 @@ const BacklogBoard = () => {
   }
 
   // Add backlog milestone if the issues doesn't hva milestone
-  data.project.milestones.map(item => milestones.push({ ...item, issues: [] }));
+  data.project.milestones.map((item) => milestones.push({ ...item, issues: [] }));
   milestones.push({ id: null, name: 'Backlog', issues: [] });
 
   // Map issue into each milestone
   if (data && data.project && data.project.issues.nodes) {
-    data.project.issues.nodes.map(issue => {
-      const milestoneID = issue.milestone !== null ? issue.milestone.id : null
-      const mIndex = milestones.findIndex(item => item.id === milestoneID);
+    data.project.issues.nodes.map((issue) => {
+      const milestoneID = issue.milestone !== null ? issue.milestone.id : null;
+      const mIndex = milestones.findIndex((item) => item.id === milestoneID);
       milestones[mIndex].issues.push(issue);
     });
   }
 
-  return (
-    <Layout
-      project={{ id: data.project.id }}
-      milestones={milestones} />
-  );
+  return <Layout project={{ id: data.project.id }} milestones={milestones} />;
 };
 
 export default BacklogBoard;

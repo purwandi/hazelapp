@@ -22,7 +22,7 @@ Sebagai seorang user yang terdaftar saya dapat menggunakan username dan password
 - [x] #XDM-102 Tidak melakukan migrasi data
 `;
 
-const AppEditor = (props) => (
+const AppEditor = () => (
   <div className="app-editor">
     <Editor classNames="app-editor" defaultValue={exampleText} spellCheck={false} />
   </div>

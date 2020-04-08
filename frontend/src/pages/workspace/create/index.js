@@ -22,14 +22,14 @@ const CREATE_PROJECT = gql`
   }
 `;
 
-const WorkspaceCreate = props => {
+const WorkspaceCreate = (props) => {
   const [state, setState] = useSetState({
     name: '',
     description: '',
   });
 
   const [createProject, { loading }] = useMutation(CREATE_PROJECT);
-  const onCreateProject = e => {
+  const onCreateProject = (e) => {
     createProject({
       variables: {
         ownerID: '',

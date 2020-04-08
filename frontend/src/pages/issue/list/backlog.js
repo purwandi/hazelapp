@@ -9,15 +9,15 @@ const Backlog = ({ project, milestone }) => (
     <div className="flex items-center justify-between text-sm">
       <h2 className="font-semibold">{milestone.name}</h2>
       <div className="ml-3">
-        <div className="text-gray-500">{(milestone.issues && milestone.issues.length) || 0} issues</div>
+        <div className="text-gray-500">
+          {(milestone.issues && milestone.issues.length) || 0} issues
+        </div>
       </div>
       <div className="flex-1 text-right">
         {milestone.id === null && <MilestoneCreate project={project} />}
       </div>
     </div>
-    <div className="text-gray-600 text-xs">
-      {milestone.description && milestone.description}
-    </div>
+    <div className="text-gray-600 text-xs">{milestone.description && milestone.description}</div>
     <div className="mt-2 mb-1">
       {milestone.issues.length === 0 && (
         <div className="border border-dashed border-gray-400">
@@ -26,7 +26,7 @@ const Backlog = ({ project, milestone }) => (
       )}
       {milestone.issues.length > 0 && (
         <div className="border border-gray-400">
-          {milestone.issues.map(issue => (
+          {milestone.issues.map((issue) => (
             <Item issue={issue} key={issue.id} />
           ))}
         </div>
@@ -38,7 +38,7 @@ const Backlog = ({ project, milestone }) => (
 
 Backlog.propTypes = {
   project: object.isRequired,
-  milestone: object.isRequired
-}
+  milestone: object.isRequired,
+};
 
 export default Backlog;

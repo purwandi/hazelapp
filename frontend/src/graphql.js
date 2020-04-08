@@ -5,13 +5,9 @@ import { onError } from 'apollo-link-error';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const Resolvers = {
-  Mutation: {},
-};
-
 export const CreateApolloClient = (context, dispatch, router) => {
-  const authLink = () => {
-    return setContext((_, { headers }) => {
+  const authLink = () =>
+    setContext((_, { headers }) => {
       // get the authentication token from local storage if it exists
       const token = context.user.token || '';
       // return the headers to the context so httpLink can read them
@@ -22,7 +18,6 @@ export const CreateApolloClient = (context, dispatch, router) => {
         },
       };
     });
-  };
 
   const httpLink = new HttpLink({
     uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
@@ -34,6 +29,7 @@ export const CreateApolloClient = (context, dispatch, router) => {
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       graphQLErrors.map(({ message, location, path }) => {
+        // eslint-disable-next-line no-console
         console.log(`
         [GraphQL error]:
           Messages : ${message},

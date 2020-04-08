@@ -34,6 +34,6 @@ const Item = ({ issue }) => (
 
 Item.propTypes = {
   issue: object.isRequired,
-}
+};
 
 export default Item;

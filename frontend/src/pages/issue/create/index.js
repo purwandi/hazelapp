@@ -6,16 +6,15 @@ import { useRouteMatch } from 'react-router';
 import { GET_ISSUES, CREATE_ISSUE } from '../query';
 import Layout from './layout';
 
-
 const IssueCreate = ({ milestone, project }) => {
   const [state, setState] = useSetState({
     title: '',
-    type: 'story'
+    type: 'story',
   });
 
-  const match = useRouteMatch()
+  const match = useRouteMatch();
   const [issueCreate] = useMutation(CREATE_ISSUE);
-  const onFormSubmit = e => {
+  const onFormSubmit = (e) => {
     e.preventDefault();
 
     // perform issue create mutation
@@ -24,6 +23,7 @@ const IssueCreate = ({ milestone, project }) => {
         projectId: project.id,
         milestoneId: milestone.id,
         title: state.title,
+        issueType: state.type,
       },
       optimisticResponse: {
         __typename: 'Mutation',
@@ -34,12 +34,13 @@ const IssueCreate = ({ milestone, project }) => {
             name: milestone.name,
             __typename: 'Milestone',
           },
-          id: "",
-          number: "",
-          body: "",
+          id: '',
+          number: '',
+          body: '',
           project,
           title: state.title,
-        }
+          issueType: state.type,
+        },
       },
       update: (proxy, { data }) => {
         // Read the data from our cache for this query.
@@ -49,11 +50,11 @@ const IssueCreate = ({ milestone, project }) => {
             owner: match.params.owner,
             name: match.params.name,
             first: 20,
-          }
-        })
+          },
+        });
 
         // push the issues data nodes
-        store.project.issues.nodes.push(data.IssueCreate)
+        store.project.issues.nodes.push(data.IssueCreate);
 
         // write our data back to the cache
         proxy.writeQuery({
@@ -63,24 +64,30 @@ const IssueCreate = ({ milestone, project }) => {
             name: match.params.name,
             first: 20,
           },
-          data: store
-        })
-      }
+          data: store,
+        });
+      },
     });
 
     // reset form state
     setState({
       title: '',
-      type: 'story'
+      type: 'story',
     });
-
   };
 
   const onChangeType = (value) => {
-    setState({ type: value })
-  }
+    setState({ type: value });
+  };
 
-  return <Layout state={state} setState={setState} onFormSubmit={onFormSubmit} onChangeType={onChangeType} />;
+  return (
+    <Layout
+      state={state}
+      setState={setState}
+      onFormSubmit={onFormSubmit}
+      onChangeType={onChangeType}
+    />
+  );
 };
 
 IssueCreate.propTypes = {

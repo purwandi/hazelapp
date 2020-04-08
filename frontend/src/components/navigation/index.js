@@ -31,7 +31,10 @@ const NavProfile = () => {
       <a
         href="/"
         className="flex justify-between items-start cursor-pointer"
-        onClick={e => { setMenu(!menu); e.preventDefault() }}
+        onClick={(e) => {
+          setMenu(!menu);
+          e.preventDefault();
+        }}
       >
         <div className="w-10 h-10">
           <img
@@ -50,7 +53,7 @@ const NavProfile = () => {
           <nav className="text-sm" />
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
@@ -91,7 +94,6 @@ const Navigation = () => {
           <NavItem icon={QuestionIcon} to="/" label="Help" />
           <NavItem
             icon={SignOutIcon}
-            to="/"
             label="Sign Out"
             onClick={() => dispatch({ type: 'LOGOUT' })}
           />

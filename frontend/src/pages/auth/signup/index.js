@@ -35,7 +35,8 @@ const AuthSignup = (props) => {
         return response.json();
       })
       .then(() => props.history.push('/auth/signin'))
-      .catch((e) => e.json().then(console.log));
+      // eslint-disable-next-line no-console
+      .catch(() => e.json().then(console.log));
 
     e.preventDefault();
   };

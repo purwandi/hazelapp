@@ -14,6 +14,7 @@ export const GET_ISSUES = gql`
           number
           title
           body
+          issueType
           milestone {
             id
           }
@@ -24,14 +25,27 @@ export const GET_ISSUES = gql`
 `;
 
 export const CREATE_ISSUE = gql`
-  mutation($projectId: ID!, $milestoneId: String, $title: String!, $body: String) {
+  mutation(
+    $projectId: ID!
+    $milestoneId: String
+    $title: String!
+    $body: String
+    $issueType: String!
+  ) {
     IssueCreate(
-      input: { projectId: $projectId, milestoneId: $milestoneId, title: $title, body: $body }
+      input: {
+        projectId: $projectId
+        milestoneId: $milestoneId
+        title: $title
+        body: $body
+        issueType: $issueType
+      }
     ) {
       id
       number
       title
       body
+      issueType
       milestone {
         id
       }
@@ -41,7 +55,7 @@ export const CREATE_ISSUE = gql`
 
 export const CREATE_MILESTONE = gql`
   mutation($name: String!, $projectId: String!) {
-    MilestoneCreate(input: {name: $name, projectId: $projectId}) {
+    MilestoneCreate(input: { name: $name, projectId: $projectId }) {
       id
       name
     }

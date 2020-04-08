@@ -28,7 +28,10 @@ const AppDiscussionLayout = () => (
     <div className="px-5">
       <header className="flex justify-between items-center border-b border-gray-200 py-2">
         <h1 className="tracking-wide text-sm">Chat</h1>
-        <button className="bg-indigo-500 text-white flex justify-between items-center rounded-sm px-2 py-1">
+        <button
+          type="button"
+          className="bg-indigo-500 text-white flex justify-between items-center rounded-sm px-2 py-1"
+        >
           <span className="text-xs px-2">Chat</span>
         </button>
       </header>

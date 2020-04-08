@@ -20,7 +20,7 @@ const GET_PROJECTS = gql`
   }
 `;
 
-const Workspace = props => {
+const Workspace = (props) => {
   const { loading, data } = useQuery(GET_PROJECTS, {
     variables: {
       first: 20,
